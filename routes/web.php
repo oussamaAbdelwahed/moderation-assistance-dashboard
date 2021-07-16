@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\TestDBController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -59,4 +60,10 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::put('profile', ['as' => 'profile.update', 'uses' => 'App\Http\Controllers\ProfileController@update']);
 	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'App\Http\Controllers\ProfileController@password']);
 });
+
+
+//fo the TestDBController
+Route::get("/test1",[TestDBController::class,"test1"]);
+Route::get("/ajax_test1",[TestDBController::class,"ajaxTest1"]);
+Route::get("/test2",[TestDBController::class,"ajaxView"]);
 

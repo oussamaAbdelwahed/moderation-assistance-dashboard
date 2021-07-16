@@ -98,7 +98,7 @@
                     login
                   </i>
                 </div>
-                <p class="card-category">Total de consultations des internautes</p>
+                <p class="card-category">Total de consultations des internautes (sessions)</p>
                 <h3 class="card-title">34</h3>
               </div>
               {{-- <div class="card-footer">
