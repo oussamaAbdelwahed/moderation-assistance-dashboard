@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\RecentStatsService;
+
 class HomeController extends Controller
 {
     /**
@@ -9,8 +11,11 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+
+     protected $recentStatsService;
+
+    public function __construct(RecentStatsService $recentStatsService){
+        $this->recentStatsService = $recentStatsService;
         $this->middleware('auth');
     }
 
@@ -21,6 +26,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard');
+        return view('dashboard')
+          ->with("stats",$this->recentStatsService->getLast2DaysStats());
     }
 }

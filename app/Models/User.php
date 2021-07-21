@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
+
     use HasFactory, Notifiable;
 
     /**
@@ -18,6 +19,7 @@ class User extends Authenticatable
      */
     //roles mapper
 
+    protected $connection = "mysql";
     public static $rolesMapper = ["MODERATOR"=>0,"SUPER_MODERATOR"=>1];
 
     public function isModerator() {

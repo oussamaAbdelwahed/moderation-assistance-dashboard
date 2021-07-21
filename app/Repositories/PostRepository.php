@@ -16,12 +16,12 @@ class PostRepository  {
    }
 
    public function getNbrSignaledPostsAndProfiles($start,$end){
-       $sqlQuery = Config::get('statistics_queries.GET_COUNTS_QUERY');
+      // $sqlQuery = Config::get('statistics_queries.GET_COUNTS_QUERY');
        /*
           $bodytag = str_replace(":start", $start, $sqlQuery);
           $bodytag = str_replace(":end", $end, $sqlQuery);
        */
-      return DB::connection("mysql2")->select($sqlQuery);
+      //return DB::connection("mysql2")->select($sqlQuery);
    }
    
 }

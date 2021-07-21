@@ -33,7 +33,7 @@ class TestDBController extends Controller
 
         $start_date = "06/04/1997";
         $end_date="31/12/2021";
-         dd($this->postService->getNbrSignaledPostsAndProfiles($start_date,$end_date));
+         //dd($this->postService->getNbrSignaledPostsAndProfiles($start_date,$end_date));
     }
 
     public function ajaxTest1(Request $request) {

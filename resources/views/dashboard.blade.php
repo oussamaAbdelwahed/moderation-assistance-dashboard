@@ -4,7 +4,7 @@
   <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <h3>Statistiques Récentes</h3>
+        <h3>Statistiques des 2 derniers jours(hier et aujourd'hui)</h3>
       </div>
       <div class="row">
         <div class="col-lg-3 col-md-6 col-sm-6">
@@ -17,7 +17,7 @@
                   </i>
                 </div>
                 <p class="card-category">Total de profils signalés</p>
-                <h3 class="card-title">34</h3>
+                <h3 class="card-title">{{ $stats['NBR_SIGNALED_PROFILES'] }}</h3>
               </div>
               <div class="card-footer">
                 <div class="stats">
@@ -40,7 +40,7 @@
                 <i class="material-icons">info_outline</i>
               </div>
               <p class="card-category ">Total de posts signalés</p>
-              <h3 class="card-title">12</h3>
+              <h3 class="card-title">{{ $stats['NBR_SIGNALED_POSTS'] }}</h3>
             </div>
             {{-- <div class="card-footer">
               <div class="stats">
@@ -70,7 +70,7 @@
                  </i>
                 </div>
                 <p class="card-category">Total de topics crées</p>
-                <h3 class="card-title">6</h3>
+                <h3 class="card-title">{{ $stats['NBR_CREATED_TOPICS'] }}</h3>
               </div>
               {{-- <div class="card-footer">
                 <div class="stats">
@@ -98,8 +98,8 @@
                     login
                   </i>
                 </div>
-                <p class="card-category">Total de consultations des internautes (sessions)</p>
-                <h3 class="card-title">34</h3>
+                <p class="card-category">Total de consultations (nbr sessions ouvertes)</p>
+                <h3 class="card-title">{{ $stats['NBR_OPENED_SESSIONS'] }}</h3>
               </div>
               {{-- <div class="card-footer">
                 <div class="stats">
