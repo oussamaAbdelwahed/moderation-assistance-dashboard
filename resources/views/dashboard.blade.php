@@ -22,7 +22,7 @@
               <div class="card-footer">
                 <div class="stats">
                   <p></p>
-                   <i class="material-icons">date_range</i> du 10/07/2021 au 13/07/2021
+                   {{-- <i class="material-icons">date_range</i> du 10/07/2021 au 13/07/2021 --}}
                 </div>
               </div>
             </div>
@@ -52,7 +52,7 @@
             <div class="card-footer">
               <div class="stats">
                 <p></p>
-                 <i class="material-icons">date_range</i> du 10/07/2021 au 11/07/2021
+                 {{-- <i class="material-icons">date_range</i> du 10/07/2021 au 11/07/2021 --}}
               </div>
             </div>
           </div>
@@ -80,7 +80,7 @@
               <div class="card-footer">
                 <div class="stats">
                   <p></p>
-                   <i class="material-icons">date_range</i> du 10/07/2021 au 15/07/2021
+                   {{-- <i class="material-icons">date_range</i> du 10/07/2021 au 15/07/2021 --}}
                 </div>
               </div>
             </div>
@@ -110,7 +110,7 @@
               <div class="card-footer">
                 <div class="stats">
                   <p></p>
-                   <i class="material-icons">date_range</i> du 09/07/2021 au 11/07/2021
+                   {{-- <i class="material-icons">date_range</i> du 09/07/2021 au 11/07/2021 --}}
                 </div>
               </div>
             </div>
@@ -171,12 +171,26 @@
          </div>          
         --}}
       </div>
+      <br/><br/><br/><br/>
 
       <div class="row">
-        <h3>Statistiques par jour de la semaine</h3>
+        <h3 >Statistiques par jour (les 7 derniers jours)</h3>
       </div>
+      {{-- <div clas="row" style="-webkit-filter: blur(3px);-moz-filter: blur(3px);-o-filter: blur(3px);-ms-filter: blur(3px);filter: blur(3px);">
 
+        <h2>TEST</h2>
+        <p>TEST TEXT</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias explicabo iste nulla id, incidunt ut laudantium quo, inventore maiores nesciunt recusandae alias sit dolore, vel magnam adipisci voluptatum dolor? Perferendis.</p>
+      </div> --}}
       <div class="row">
+        <button id="show-group-1-stats-btn" class="btn btn-default">
+            Afficher les statistiques des 7 derniers jours
+            {{-- <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> --}}
+            <i id="spinner-stats-group-1" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
+            <span class="sr-only">Loading...</span>
+        </button>
+      </div>
+      <div class="row blur-container" id="group-1-stats-container">
         <div class="col-md-4">
           <div class="card card-chart">
             <div class="card-header card-header-info">
@@ -198,50 +212,58 @@
           </div>
         </div>
 
-      <div class="col-md-4">
-        <div class="card card-chart">
-          <div class="card-header card-header-info">
-            {{-- <div class="ct-chart" id="websiteViewsChart"></div> --}}
-            <div class="ct-chart" id="signaledPosts"></div> 
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">Postes signalés par jour</h4>
-            {{-- <p class="card-category">Last Campaign Performance</p> --}}
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <a class="btn btn-success" style="color:white;">voir anciennes semaines</a>
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-info">
+              {{-- <div class="ct-chart" id="websiteViewsChart"></div> --}}
+              <div class="ct-chart" id="signaledPosts"></div> 
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Postes signalés par jour</h4>
+              {{-- <p class="card-category">Last Campaign Performance</p> --}}
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a class="btn btn-success" style="color:white;">voir anciennes semaines</a>
 
-              {{-- <i class="material-icons">access_time</i> campaign sent 2 days ago --}}
+                {{-- <i class="material-icons">access_time</i> campaign sent 2 days ago --}}
+              </div>
+            </div>
+          </div>
+        </div> 
+
+
+        <div class="col-md-4">
+          <div class="card card-chart">
+            <div class="card-header card-header-info">
+              <div class="ct-chart" id="topPosts"></div>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Postes de poids >= 100 par jour</h4>
+              {{-- <p class="card-category">Last Campaign Performance</p> --}}
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <a class="btn btn-success" style="color:white;">voir anciennes semaines</a>
+
+                {{-- <i class="material-icons">access_time</i> campaign sent 2 days ago --}}
+              </div>
             </div>
           </div>
         </div>
-      </div> 
-
-
-      <div class="col-md-4">
-        <div class="card card-chart">
-          <div class="card-header card-header-info">
-            <div class="ct-chart" id="topPosts"></div>
-          </div>
-          <div class="card-body">
-            <h4 class="card-title">Postes de poids >= 100 par jour</h4>
-            {{-- <p class="card-category">Last Campaign Performance</p> --}}
-          </div>
-          <div class="card-footer">
-            <div class="stats">
-              <a class="btn btn-success" style="color:white;">voir anciennes semaines</a>
-
-              {{-- <i class="material-icons">access_time</i> campaign sent 2 days ago --}}
-            </div>
-          </div>
-        </div>
-      </div>
 
       </div>
       {{-- deuxieme ligne des chartes --}}
-      
+      <br/><br/>
       <div class="row">
+        <button id="show-group-2-stats-btn" class="btn btn-default">
+            Afficher les statistiques des 7 derniers jours
+            {{-- <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> --}}
+            <i id="spinner-stats-group-2" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
+            <span class="sr-only">Loading...</span>
+        </button>
+      </div>
+      <div id="group-2-stats-container" class="row blur-container">
         <div class="col-md-4">
           <div class="card card-chart">
             <div class="card-header card-header-info">
@@ -500,11 +522,14 @@
 @endsection
 
 @push('js')
+{{-- first script, copy some of its content, when success ajax in the second script passed , 
+  (), the md.initDashboardPageCharts() may or may not be moved on ajax,--}}
   <script src="{{ asset('material') }}/js/plugins/chartist-plugin-tooltip.min.js"></script>
+  <script type="text/javascript" src="{{ asset("js/statistics/last_7_days_stats_group_1.js") }}"></script>
   <script>
     $(document).ready(function() {
       // Javascript method's body can be found in assets/js/demos.js
-      md.initDashboardPageCharts();
+      //md.initDashboardPageCharts();
     });
   </script>
 @endpush

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AjaxDashboardChartStatsController;
 use App\Http\Controllers\TestDBController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,7 +64,8 @@ Route::group(['middleware' => 'auth'], function () {
 
 
 //fo the TestDBController
-Route::get("/test1",[TestDBController::class,"test1"]);
+//Route::get("/test1",[TestDBController::class,"test1"]);
 Route::get("/ajax_test1",[TestDBController::class,"ajaxTest1"]);
-Route::get("/test2",[TestDBController::class,"ajaxView"]);
+//Route::get("/test2",[TestDBController::class,"ajaxView"]);
+Route::get("/stats/get-last7days-stats-g1",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup1"]);
 

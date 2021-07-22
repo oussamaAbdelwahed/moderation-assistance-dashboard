@@ -142,9 +142,9 @@ $(window).resize(function() {
   // reset the seq for charts drawing animations
   seq = seq2 = 0;
 
-  setTimeout(function() {
-    md.initDashboardPageCharts();
-  }, 500);
+  // setTimeout(function() {
+  //   md.initDashboardPageCharts();
+  // }, 500);
 });
 
 md = {
@@ -307,9 +307,92 @@ md = {
     }
   },
 
+  initDashboardPageGroup1Charts : function(dataSignaledProfiles,dataSignaledPosts,dataTopPosts){
+    optionsSignaledProfiles = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: Math.max(...dataSignaledProfiles.series[0]) + 10, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      },
+      axisY: {
+        onlyInteger: true
+      },
+      plugins: [
+        Chartist.plugins.tooltip()
+      ]
+    };
+
+    optionsSignaledPosts = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: Math.max(...dataSignaledPosts.series[0]) + 10, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      },
+      axisY: {
+        onlyInteger: true
+      },
+      plugins: [
+        Chartist.plugins.tooltip()
+      ]
+    }
+
+    var optionsTopPosts = {
+      axisX: {
+        showGrid: false
+      },
+      low: 0,
+      high: Math.max(...dataTopPosts.series[0]) + 10,
+      chartPadding: {
+        top: 0,
+        right: 5,
+        bottom: 0,
+        left: 5
+      },
+      plugins: [
+        Chartist.plugins.tooltip()
+      ]
+    };
+
+    var responsiveOptions = [
+      ['screen and (max-width: 640px)', {
+        seriesBarDistance: 5,
+        axisX: {
+          labelInterpolationFnc: function(value) {
+            return value[0];
+          }
+        }
+      }]
+    ];
+
+     var signaledProfiles = new Chartist.Line('#signaledProfiles', dataSignaledProfiles, optionsSignaledProfiles);
+     md.startAnimationForLineChart(signaledProfiles);
+
+     var signaledPosts = new Chartist.Line('#signaledPosts', dataSignaledPosts, optionsSignaledPosts)
+     md.startAnimationForLineChart(signaledPosts);
+
+
+    var topPosts = Chartist.Bar('#topPosts', dataTopPosts, optionsTopPosts);
+    md.startAnimationForBarChart(topPosts);
+  },
+  initDashboardPageGroup2Charts: function(dataInteractions,dataContributions){
+
+  },
+
   initDashboardPageCharts: function() {
 
-    if ($('#signaledProfiles').length != 0 || $('#completedTasksChart').length != 0 || $('#websiteViewsChart').length != 0) {
+    if ($('#signaledProfiles').length != 0 || $('#signaledPosts').length != 0 || $('#topPosts').length != 0) {
       /* ----------==========     Daily Sales Chart initialization    ==========---------- */
 
       dataSignaledProfiles= {
