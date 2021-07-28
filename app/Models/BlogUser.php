@@ -45,6 +45,14 @@ class BlogUser extends Model
         );   
     }
 
+    public function myTopics(){
+        return $this->hasMany(
+            Topic::class,
+            "created_by",
+            "id"
+        );   
+    }
+
     public function myWeightVotes() {
         return $this->hasMany(
             WeightVote::class,
@@ -61,8 +69,19 @@ class BlogUser extends Model
             "post_signals",
             "user_id",
             "post_id"
-        );
+        )->withPivot("created_at");;
     }
+
+    public function lastSignaledPosts() {
+        return $this->belongsToMany(
+            Post::class,
+            "post_signals",
+            "user_id",
+            "post_id"
+        )->orderByPivot("id","desc");
+    }
+
+
 
     public function usersThatISignaled() {
        return $this->belongsToMany(
@@ -70,7 +89,7 @@ class BlogUser extends Model
            "user_signals",
            "user_id",
            "signaled_id"
-       );
+       )->withPivot("created_at");;
     }
 
     public function usersThatSignaledMe() {
@@ -79,6 +98,6 @@ class BlogUser extends Model
             "user_signals",
             "signaled_id",
             "user_id"
-        );      
+        )->withPivot("created_at");;      
     }
 }

@@ -365,17 +365,6 @@ md = {
       ]
     };
 
-    var responsiveOptions = [
-      ['screen and (max-width: 640px)', {
-        seriesBarDistance: 5,
-        axisX: {
-          labelInterpolationFnc: function(value) {
-            return value[0];
-          }
-        }
-      }]
-    ];
-
      var signaledProfiles = new Chartist.Line('#signaledProfiles', dataSignaledProfiles, optionsSignaledProfiles);
      md.startAnimationForLineChart(signaledProfiles);
 
@@ -386,8 +375,45 @@ md = {
     var topPosts = Chartist.Bar('#topPosts', dataTopPosts, optionsTopPosts);
     md.startAnimationForBarChart(topPosts);
   },
-  initDashboardPageGroup2Charts: function(dataInteractions,dataContributions){
+  initDashboardPageGroup2Charts: function(dataInteractions,dataContributors){
+    var summation = function(a, b) { return a + b.value };
+    var totalInteractions = dataInteractions.series.reduce(summation,0);
+    var totalContributions =  dataContributors.series.reduce(summation,0); 
 
+    $("#interactions-total").text("Total d'intéractions  = "+totalInteractions);
+    $("#contributors-total").text("Total de contributions = "+totalContributions);
+   var optionsInteraction = {
+      labelInterpolationFnc: function(value) {
+        return Math.round(value / totalInteractions * 100) + '%';
+      },
+      //showLabel: true,
+      //labelOffset: 80,
+      //chartPadding: 0,
+      //labelDirection: 'explode',
+        plugins: [
+        Chartist.plugins.tooltip()
+      ]
+}
+
+
+var blogInteraction = new Chartist.Pie('#postsInteraction', dataInteractions,optionsInteraction);
+md.startAnimationForLineChart(blogInteraction);
+
+    var optionsContributors = {
+      labelInterpolationFnc: function(value) {
+        return Math.round(value / totalContributions * 100) + '%';
+      },
+      //showLabel: true,
+      //labelOffset: 80,
+      //chartPadding: 0,
+      //labelDirection: 'explode',
+        plugins: [
+        Chartist.plugins.tooltip()
+      ]
+    }
+    
+    var contributorsChart = new Chartist.Pie('#exchangeContributors', dataContributors, optionsContributors);
+    md.startAnimationForLineChart(contributorsChart);  
   },
 
   initDashboardPageCharts: function() {
@@ -507,76 +533,104 @@ md = {
 
 
 
-//posts interactions chart
-
-
-dataPostsInteraction= {
-  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+// interactions chart
+dataInteractions= {
   series: [
-    [121, 17, 17, 17, 23, 188, 388]
-  ]
-};
+  {
+    value: 20,
+    meta: 'Metric One'
+  }, 
+  {
+    value: 10,
+    meta: 'Metric Two'
+  }, 
+  {
+    value: 70,
+    meta: 'Metric Three'
+  },
+  {
+    value: 80,
+    meta: 'Metric 4'
+  },
+  {
+    value: 45,
+    meta: 'Metric 5'
+  },
+  {
+    value: 75,
+    meta: 'Metric 6'
+  }
+ ]
+}
+var summation = function(a, b) { return a + b.value };
 
-optionsPostsInteraction = {
-  lineSmooth: Chartist.Interpolation.cardinal({
-    tension: 0
-  }),
-  low: 0,
-  high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-  chartPadding: {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
+var optionsInteraction = {
+  
+  labelInterpolationFnc: function(value) {
+    return Math.round(value / dataInteractions.series.reduce(summation,0) * 100) + '%';
   },
-  axisY: {
-    onlyInteger: true
-  },
-  plugins: [
+  showLabel: true,
+  labelOffset: 80,
+  chartPadding: 0,
+  labelDirection: 'explode',
+    plugins: [
     Chartist.plugins.tooltip()
   ]
 }
 
-var postsInteraction = new Chartist.Line('#postsInteraction', dataPostsInteraction, optionsPostsInteraction);
 
-md.startAnimationForLineChart(postsInteraction);
+var blogInteraction = new Chartist.Pie('#postsInteraction', dataInteractions,optionsInteraction);
+md.startAnimationForLineChart(blogInteraction);
 
 
-//exchange contributors chart
-dataExchangeContributors= {
-  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+// contributors chart
+dataContributors= {
   series: [
-    [11, 17, 92, 50, 110, 130, 200]
-  ]
-};
-
-optionsExchangeContributors = {
-  lineSmooth: Chartist.Interpolation.cardinal({
-    tension: 0
-  }),
-  low: 0,
-  high: 50, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
-  chartPadding: {
-    top: 0,
-    right: 0,
-    bottom: 0,
-    left: 0
-  },
-  axisY: {
-    onlyInteger: true
-  },
-  plugins: [
-    Chartist.plugins.tooltip()
-  ]
-}
-
-var exchangeContributors = new Chartist.Line('#exchangeContributors', dataExchangeContributors, optionsExchangeContributors);
-
-md.startAnimationForLineChart(exchangeContributors);
-
-
+    {
+      value: 20,
+      meta: 'Metric One'
+    },
+    {
+      value: 10,
+      meta: 'Metric Two'
+    },
+    {
+      value: 70,
+      meta: 'Metric Three'
+    },
+    {
+      value: 80,
+      meta: 'Metric 4'
+    },
+    {
+      value: 45,
+      meta: 'Metric 5'
+    },
+    {
+      value: 75,
+      meta: 'Metric 6'
     }
+  ]
+};
+
+optionsContributors = {
+  labelInterpolationFnc: function(value) {
+    return Math.round(value / dataContributors.series.reduce(summation,0) * 100) + '%';
   },
+  showLabel: true,
+  labelOffset: 80,
+  chartPadding: 0,
+  labelDirection: 'explode',
+    plugins: [
+    Chartist.plugins.tooltip()
+  ]
+}
+
+var contributorsChart = new Chartist.Pie('#exchangeContributors', dataContributors, optionsContributors);
+md.startAnimationForLineChart(contributorsChart);
+
+}
+},
 
   initMinimizeSidebar: function() {
 

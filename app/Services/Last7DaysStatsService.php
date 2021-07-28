@@ -42,4 +42,16 @@ class Last7DaysStatsService {
         return $results;
     } 
 
+    public function getGroup2Last7DaysStats() {
+      //it should be $start_date = now()->subDays(6)->format('Y-m-d'); but for testing purposes we use 9 instead of 6
+      $start_date = now()->subDays(8)->format('Y-m-d');
+      $end_date = now()->format('Y-m-d');
+
+      return $this->last7DaysStatsRepo->getGroup2Last7DaysStats($start_date,$end_date);
+    }
+
+    public function getLastNSignaledPostsAndProfiles(int $n) {
+       return $this->last7DaysStatsRepo->getLastNSignaledPostsAndProfiles($n);
+    }
+
 }

@@ -1,6 +1,9 @@
 <?php
 
 use App\Http\Controllers\AjaxDashboardChartStatsController;
+use App\Http\Controllers\PostStatsController;
+use App\Http\Controllers\ProfileStatsController;
+
 use App\Http\Controllers\TestDBController;
 use Illuminate\Support\Facades\Route;
 
@@ -68,4 +71,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::get("/ajax_test1",[TestDBController::class,"ajaxTest1"]);
 //Route::get("/test2",[TestDBController::class,"ajaxView"]);
 Route::get("/stats/get-last7days-stats-g1",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup1"]);
+Route::get("/stats/get-last7days-stats-g2",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup2"]);
+Route::get("/stats/get-last-signaled-posts-and-profiles-stats-g3",[AjaxDashboardChartStatsController::class,"getLastSignaledPostsAndProfilesGroup3Stats"]);
 
+Route::get("/post/signaled-posts",[PostStatsController::class,"getLast5SignaledPosts"])->name("all-signaled-posts");
+Route::get("/blog-users/signaled-profiles",[ProfileStatsController::class,"getLast5SignaledProfiles"])->name("all-signaled-profiles");

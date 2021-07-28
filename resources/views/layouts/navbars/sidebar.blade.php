@@ -50,10 +50,17 @@
           </ul>
         </div>
       </li>
-      <li class="nav-item{{ $activePage == 'table' ? ' active' : '' }}">
-        <a class="nav-link" href="{{ route('table') }}">
+      <li class="nav-item{{ $activePage == 'signaled-posts' ? ' active' : '' }}">
+        {{-- <a class="nav-link" href="{{ route('table') }}"> --}}
+        <a class="nav-link" href="{{ route('all-signaled-posts') }}">
           <i class="material-icons">content_paste</i>
-            <p>{{ __('Réclamations de signal') }}</p>
+          <p>{{ __('Réclamations signal postes') }}</p>
+        </a>
+      </li>
+      <li class="nav-item{{ $activePage == 'signaled-profiles' ? ' active' : '' }}">
+        <a class="nav-link" href="{{ route('all-signaled-profiles') }}">
+          <i class="material-icons">content_paste</i>
+          <p>{{ __('Réclamations signals profils') }}</p>
         </a>
       </li>
       {{-- <li class="nav-item{{ $activePage == 'typography' ? ' active' : '' }}">

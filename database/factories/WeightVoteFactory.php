@@ -37,7 +37,6 @@ class WeightVoteFactory extends Factory
     {
         $this->init();
         return [
-           "weight"=>rand(1, 100),
            "post_id"=>$this::$postsIds[array_rand($this::$postsIds)],
            "user_id"=>$this::$usersIds[array_rand($this::$usersIds)],
            "voted_on" => now()->addSeconds($this::$i++)

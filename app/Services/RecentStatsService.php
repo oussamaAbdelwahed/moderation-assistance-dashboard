@@ -21,7 +21,7 @@ class RecentStatsService {
             "NBR_OPENED_SESSIONS" => 0
         ];
         $tmp = $this->recentStatsRepo->getLast2DaysStats($start_date,$end_date);
-        if(is_object($tmp[0])) {
+        if(is_array($tmp) && !empty($tmp) && is_object($tmp[0])) {
           foreach($tmp[0] as $key=>$value){
             $res[$key] = $value;
           }

@@ -19,4 +19,8 @@ class Topic extends Model
             "post_id",
         );
     }
+
+    public function user(){
+        return $this->belongsTo(BlogUser::class,"created_by");
+    }
 }

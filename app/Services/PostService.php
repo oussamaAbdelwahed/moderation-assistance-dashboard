@@ -4,21 +4,14 @@ use App\Repositories\PostRepository;
 
 
 class PostService {
-   protected $postRepository;
+   protected $postRepo;
 
-   public function __construct(PostRepository $postRepository){
-      $this->postRepository = $postRepository;
+   public function __construct(PostRepository $postRepo){
+      $this->postRepo = $postRepo;
    } 
 
-   public function test(){
-       return $this->postRepository->test()." | DI WORKS FINE WITH SERVICE";
+   public function getLastNSignaledPosts(int $n= 5) {
+      return $this->postRepo->getLastNSignaledPosts();
    }
-
-
-   public function getNbrSignaledPostsAndProfiles($start,$end){
-        if(isset($start) && isset($end))
-          return $this->postRepository->getNbrSignaledPostsAndProfiles($start,$end);
-   }
-   
 }
 ?>

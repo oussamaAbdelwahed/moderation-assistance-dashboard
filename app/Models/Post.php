@@ -48,18 +48,18 @@ class Post extends Model
             "post_signals",
             "post_id",
             "user_id"
-        );
+        )->withPivot("created_at");
     }
 
 
 
 
-    public function usersSignals(){
-        return $this->belongsToMany(
-            Post::class,
-            "post_signals",
-            "post_id",
-            "user_id"
-        );
-    }
+    // public function usersSignals(){
+    //     return $this->belongsToMany(
+    //         Post::class,
+    //         "post_signals",
+    //         "post_id",
+    //         "user_id"
+    //     );
+    // }
 }

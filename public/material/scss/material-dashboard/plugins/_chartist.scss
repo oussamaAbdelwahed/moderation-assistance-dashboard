@@ -269,6 +269,57 @@
     stroke: #ff9800;
   }
 
+
+  .ct-series-c .ct-point,
+  .ct-series-c .ct-line,
+  .ct-series-c .ct-bar,
+  .ct-series-c .ct-slice-donut,
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area {
+    stroke: #59922b;
+  }
+
+  .ct-series-c .ct-point,
+  .ct-series-c .ct-line,
+  .ct-series-c .ct-bar,
+  .ct-series-c .ct-slice-donut,
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area {
+    stroke: #0544d3;
+  }
+
+  .ct-series-c .ct-point,
+  .ct-series-c .ct-line,
+  .ct-series-c .ct-bar,
+  .ct-series-c .ct-slice-donut,
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area {
+    stroke: #f4c63d;
+  }
+
+  .ct-series-c .ct-point,
+  .ct-series-c .ct-line,
+  .ct-series-c .ct-bar,
+  .ct-series-c .ct-slice-donut,
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area {
+    stroke: #86797d;
+  }
+
+  .ct-series-c .ct-point,
+  .ct-series-c .ct-line,
+  .ct-series-c .ct-bar,
+  .ct-series-c .ct-slice-donut,
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area {
+    stroke: #6b0392;
+  }
+
   .ct-bar {
     fill: none;
     stroke-width: 10px;
@@ -325,4 +376,42 @@
   .ct-series-c .ct-area{
     fill: #ff9800;
   }
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area{
+    fill: #6b0392;;
+  }
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area{
+    fill: #86797d;
+  }
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area{
+    fill: #0544d3;
+  }
+  .ct-series-c .ct-slice-pie,
+  .ct-series-c .ct-slice-donut-solid,
+  .ct-series-c .ct-area{
+    fill: #59922b;
+  }
 }
+
+$ct-series-colors: (
+  #d70206,
+  #f05b4f,
+  #f4c63d,
+  #d17905,
+  #453d3f,
+  #59922b,
+  #0544d3,
+  #6b0392,
+  #f05b4f,
+  #dda458,
+  #eacf7d,
+  #86797d,
+  #b2c326,
+  #6188e2,
+  #a748ca
+) !default;
