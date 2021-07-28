@@ -317,6 +317,7 @@
                 </tbody>
               </table>
             </div>
+          </div>
           <div class="card-footer">
             <a  href="{{route('all-signaled-posts')}}" class="btn btn-success">
                Voir tous
