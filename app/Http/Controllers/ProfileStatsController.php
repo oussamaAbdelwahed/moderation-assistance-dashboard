@@ -38,8 +38,13 @@ class ProfileStatsController extends Controller
            $from_date = !empty($req->query('from-date')) ? $req->query('from-date') : $from_date;
            $to_date = !empty($req->query('to-date')) ? $req->query('to-date') : $to_date;
       }
+
       $data = $this->blogUserService->getBlacklistedProfiles($threshold,$from_date,$to_date)->simplePaginate(10);
+      
       return view("profile.blacklisted_profiles")
-              ->with("data",$data);
+              ->with("data",$data,)
+              ->with("threshold",$threshold)
+              ->with("from",$from_date)
+              ->with("to",$to_date);
     }
 }

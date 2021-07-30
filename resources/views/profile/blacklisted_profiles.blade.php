@@ -37,7 +37,7 @@
       <div class="row">
         <div class="card">
             <div class="card-header card-header-danger">
-               <h3 class="card-title">Liste des profils blacklistés</h3>             
+               <h3 class="card-title">Liste des profils blacklistés ( de {{ $from }} jusqu'à {{ $to  }} / seuil = {{ $threshold }})</h3>             
             </div>
             <div class="card-body table-responsive">
              <table class="table table-hover">
