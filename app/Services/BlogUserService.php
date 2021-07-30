@@ -9,7 +9,11 @@ class BlogUserService  {
        $this->blogUserRepo =  $blogUserRepo;
     }
 
-    public function getLastNSignaledBlogUsers(int $n) {
-      return $this->blogUserRepo->getLastNSignaledBlogUsers($n);
+    public function getLastNSignaledBlogUsers(int $n=5) {
+       return $this->blogUserRepo->getLastNSignaledBlogUsers();
+    }
+
+    public function getBlacklistedProfiles($threshold,$from,$to){
+       return $this->blogUserRepo->getBlacklistedProfiles($threshold,$from,$to);
     }
 }

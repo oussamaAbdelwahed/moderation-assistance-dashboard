@@ -18,7 +18,7 @@ class PostRepository  {
                 }
               )->join("blog_users as bu","p.user_id","=","bu.id")
                ->orderBy("last_signal_date","desc");
-
+               
     return $result;
   }
 

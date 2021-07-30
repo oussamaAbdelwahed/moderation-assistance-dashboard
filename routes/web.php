@@ -76,3 +76,4 @@ Route::get("/stats/get-last-signaled-posts-and-profiles-stats-g3",[AjaxDashboard
 
 Route::get("/post/signaled-posts",[PostStatsController::class,"getLast5SignaledPosts"])->name("all-signaled-posts");
 Route::get("/blog-users/signaled-profiles",[ProfileStatsController::class,"getLast5SignaledProfiles"])->name("all-signaled-profiles");
+Route::get("/blog-users/blacklisted-profiles",[ProfileStatsController::class,"getBlacklistedProfiles"])->name("blacklisted-profiles");

@@ -54,7 +54,6 @@
               <div class="card-footer">
                 <div class="stats">
                   <p></p>
-                   {{-- <i class="material-icons">date_range</i> du 10/07/2021 au 13/07/2021 --}}
                 </div>
               </div>
             </div>
@@ -65,26 +64,17 @@
           <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
           <div class="card card-stats">
             <div class="card-header card-header-danger card-header-icon">
-              {{-- <div class="card-icon">
-                <i class="material-icons">content_copy</i>
-              </div> --}}
+     
               <div class="card-icon">
                 <i class="material-icons">info_outline</i>
               </div>
               <p class="card-category ">Total de posts signalés</p>
               <h3 class="card-title">{{ $stats['NBR_SIGNALED_POSTS'] }}</h3>
             </div>
-            {{-- <div class="card-footer">
-              <div class="stats">
-                <p></p>
-               <i class="material-icons text-danger">warning</i>
-                <a href="#pablo">Plus de détails...</a> 
-              </div>
-            </div> --}}
+
             <div class="card-footer">
               <div class="stats">
                 <p></p>
-                 {{-- <i class="material-icons">date_range</i> du 10/07/2021 au 11/07/2021 --}}
               </div>
             </div>
           </div>
@@ -104,21 +94,15 @@
                 <p class="card-category">Total de topics crées</p>
                 <h3 class="card-title">{{ $stats['NBR_CREATED_TOPICS'] }}</h3>
               </div>
-              {{-- <div class="card-footer">
-                <div class="stats">
-                  <i class="material-icons">local_offer</i> Tracked from Github
-                </div>
-              </div> --}}
+ 
               <div class="card-footer">
                 <div class="stats">
                   <p></p>
-                   {{-- <i class="material-icons">date_range</i> du 10/07/2021 au 15/07/2021 --}}
                 </div>
               </div>
             </div>
           </a>
         </div>
-      
 
           <div class="col-lg-3 col-md-6 col-sm-6">
             <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
@@ -133,12 +117,7 @@
                 <p class="card-category">Total de consultations (nbr sessions ouvertes)</p>
                 <h3 class="card-title">{{ $stats['NBR_OPENED_SESSIONS'] }}</h3>
               </div>
-              {{-- <div class="card-footer">
-                <div class="stats">
-                  <p></p>
-                 <i class="material-icons">update</i> Just Updated 
-                </div>
-              </div> --}}
+
               <div class="card-footer">
                 <div class="stats">
                   <p></p>
@@ -259,10 +238,6 @@
             <div class="card-footer">
               {{-- <div class="stats"> --}}
               <p id="contributors-total">Total de contributeurs = N</p>
-                {{-- <a class="btn btn-success" style="color:white;">voir anciennes semaines</a> --}}
-  
-                {{-- <i class="material-icons">access_time</i> campaign sent 2 days ago --}}
-              {{-- </div> --}}
             </div>
           </div>
         </div> 
@@ -306,13 +281,6 @@
                     <td>nom/prenom signaleur</td>
                     <td>06/04/2020</td>
                     <td>20</td>
-                    {{-- <td>
-                      <a href="">
-                        <i class="material-icons">
-                          more_vert
-                        </i>
-                      </a>
-                    </td> --}}
                   </tr>
                 </tbody>
               </table>
@@ -324,7 +292,6 @@
             </a>
           </div>
         </div>
-
 
 {{-- LAST SIGNALED PROFILES --}}
 
@@ -344,7 +311,6 @@
                   <th>Date de naissance</th>
                   <th>Signalé le(dernier signal)</th>
                   <th>Nombre total de signals</th>
-                  {{-- <th>Voir plus</th> --}}
                 </thead>
                 <tbody id="dt-profiles">
                   <tr>
@@ -355,15 +321,7 @@
                     <td>06/04/2020</td>
                     <td>06/04/2020</td>
                     <td>30</td>
-                    {{-- <td>
-                      <a href="">
-                        <i class="material-icons">
-                          more_vert
-                        </i>
-                      </a>
-                    </td> --}}
                   </tr>
-                      
                 </tbody>
               </table>
             </div>

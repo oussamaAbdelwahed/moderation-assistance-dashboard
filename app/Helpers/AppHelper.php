@@ -1,15 +1,18 @@
 <?php
+use Illuminate\Support\Facades\DB ;
+
 namespace App\Helpers;
+
 
 class AppHelper {
      private static $ins = null;
 
      public static function startQueryLog(){
-        \DB::enableQueryLog();
+        //DB::connection("mysql2")->enableQueryLog();
      }
 
      public static function showQueries(){
-        dd(\DB::getQueryLog());
+      //  dd(DB::connection("mysql2")->getQueryLog());
      }
 
      public static function cleanUpSqlQuery($sqlQuery){

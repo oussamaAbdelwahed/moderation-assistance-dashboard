@@ -20,6 +20,6 @@ class PostStatsController extends Controller
 
     public function getLast5SignaledPosts(Request $req){
       return view("post.signaled_posts")
-      ->with("data",$this->postService->getLastNSignaledPosts()->cursorPaginate(5));
+      ->with("data",$this->postService->getLastNSignaledPosts()->cursorPaginate(10));
     }
 }

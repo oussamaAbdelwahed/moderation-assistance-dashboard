@@ -28,8 +28,9 @@
         &copy;
         <script>
             document.write(new Date().getFullYear())
-        </script>, made with <i class="material-icons">favorite</i> by
-        <a href="https://www.creative-tim.com" target="_blank">Creative Tim</a> and <a href="https://www.updivision.com" target="_blank">UPDIVISION</a> for a better web.
+        </script>, crée par ABDELWAHED Oussama
+         <a href="mailto:ousabdelwahed@gmail.com">ousabdelwahed@gmail.com</a>
+          au profit de la plateforme <a href="https://comparena.tn/" target="_blank">comparena.tn</a>.
         </div>
     </div>
 </footer>
