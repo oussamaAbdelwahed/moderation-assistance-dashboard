@@ -16,6 +16,7 @@ class ProfileStatsController extends Controller
     }
 
     public function getLast5SignaledProfiles(Request $req){
+      //return dd($this->blogUserService->getLastNSignaledBlogUsers()->cursorPaginate(10));
       return view("profile.signaled_profiles")
       ->with("data",$this->blogUserService->getLastNSignaledBlogUsers()->cursorPaginate(10));
     }
@@ -37,9 +38,7 @@ class ProfileStatsController extends Controller
            $from_date = !empty($req->query('from-date')) ? $req->query('from-date') : $from_date;
            $to_date = !empty($req->query('to-date')) ? $req->query('to-date') : $to_date;
       }
-
-      $data = $this->blogUserService->getBlacklistedProfiles($threshold,$from_date,$to_date)->cursorPaginate(10);
-      
+      $data = $this->blogUserService->getBlacklistedProfiles($threshold,$from_date,$to_date)->simplePaginate(10);
       return view("profile.blacklisted_profiles")
               ->with("data",$data);
     }
