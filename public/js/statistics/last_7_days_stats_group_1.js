@@ -6,11 +6,15 @@ function getLast7DaysStatsGroup1(){
         contentType: 'application/json; charset=utf-8',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(data) {
-            //console.log(data);
             prepareDataToLast7DaysStatsGroup1(data);
+            $("#group-1-stats-container").removeClass("blur-container");
+            $("#show-group-1-stats-btn").hide();
         },
         error: function(err){
-          console.log(err);
+            $("#spinner-stats-group-1").hide();
+            $("#group1-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
+            $("#group1-stats-error-msg").show();
+            console.log(err);
         }
   });
 }
@@ -25,9 +29,14 @@ function getLast7DaysStatsGroup2(){
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(data) {
            prepareDataToLast7DaysStatsGroup2(data);
+           $("#group-2-stats-container").removeClass("blur-container");
+           $("#show-group-2-stats-btn").hide();
         },
         error: function(err){
-          console.log(err);
+           $("#spinner-stats-group-2").hide();
+           $("#group2-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
+           $("#group2-stats-error-msg").show();
+           console.log(err);
         }
   });  
 }
@@ -40,10 +49,16 @@ function getLastSignaledPostsAndProfilesGroup3Stats(n){
         contentType: 'application/json; charset=utf-8',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(data) {
+            console.log(data);
             prepareDataToLastSignaledPostsAndProfilesGroup3DataTables(data);
+            $("#last-signaled-posts-and-profiles-container").removeClass("blur-container");
+            $("#show-last-signaled-posts-profiles-btn").hide();
         },
         error: function(err){
-          console.log(err);
+            $("#spinner-signals").hide();
+            $("#group3-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
+            $("#group3-stats-error-msg").show();
+            console.log(err);
         }
   });    
 }
@@ -170,38 +185,41 @@ function renderRowForProfilesDT(domParent,data){
 
 $(function(){
   md.initDashboardPageCharts();
+
   $("#show-group-1-stats-btn").on("click",function(e){
+     $("#group1-stats-error-msg").hide();
      $("#spinner-stats-group-1").show();
      var _this = this;
      getLast7DaysStatsGroup1();
 
      setTimeout(function(){
-        $("#group-1-stats-container").removeClass("blur-container");
-        $(_this).hide();
+      //   $("#group-1-stats-container").removeClass("blur-container");
+      //   $(_this).hide();
      },500);
      
   });
 
   $("#show-group-2-stats-btn").on("click",function(e){
+     $("#group2-stats-error-msg").hide();
      $("#spinner-stats-group-2").show();
      var _this = this;
      getLast7DaysStatsGroup2();
      setTimeout(function(){
-        $("#group-2-stats-container").removeClass("blur-container");
-        $(_this).hide();
+      //   $("#group-2-stats-container").removeClass("blur-container");
+      //   $(_this).hide();
      },500);
 
   });
 
 
-  //showing last signaled posts & profiles
   $("#show-last-signaled-posts-profiles-btn").on("click",function(e){
+     $("#group3-stats-error-msg").hide();
      $("#spinner-signals").show();
      var _this = this;
      getLastSignaledPostsAndProfilesGroup3Stats(5);
      setTimeout(function(){
-        $("#last-signaled-posts-and-profiles-container").removeClass("blur-container");
-        $(_this).hide();
+      //   $("#last-signaled-posts-and-profiles-container").removeClass("blur-container");
+      //   $(_this).hide();
      },500);
   });
 

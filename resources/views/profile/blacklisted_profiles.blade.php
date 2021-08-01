@@ -50,7 +50,7 @@
                   <th>Nbr de signals sur la période</th>
                 </thead>
                 <tbody id="dt-posts">
-                  @foreach ($data as $item)
+                  @forelse ($data as $item)
                     <tr>
                       <td>{{$item->id}}</td>
                       <td>{{$item->lastname}}</td>
@@ -59,7 +59,13 @@
                       <td>{{$item->birthdate}}</td>
                       <td>{{$item->nbr_of_signals}}</td>
                     </tr>
-                  @endforeach
+                  @empty
+                    <tr>
+                      <td>
+                        <p>Pas de données disponibles ! </p>
+                      </td>
+                    </tr>
+                  @endforelse
                 </tbody>
               </table>
             </div>

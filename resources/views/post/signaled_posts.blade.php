@@ -21,7 +21,7 @@
                   {{-- <th>Voir plus</th> --}}
                 </thead>
                 <tbody id="dt-posts">
-                  @foreach ($data as $item)
+                  @forelse ($data as $item)
                     <tr>
                       <td>{{$item->id}}</td>
                       <td>{{$item->title}}</td>
@@ -30,7 +30,11 @@
                       <td>{{$item->last_signal_date}}</td>
                       <td>{{$item->nbr_of_signals}}</td>
                     </tr>
-                  @endforeach
+                  @empty
+                     <tr>
+                       <td><p>Pas de données disponibles ! </p></td>
+                     </tr>
+                  @endforelse
                 </tbody>
               </table>
             </div>

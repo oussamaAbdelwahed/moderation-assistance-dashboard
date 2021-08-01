@@ -17918,6 +17918,56 @@ Copyright (c) 2015 Daniel Eden
   stroke: #ff9800;
 }
 
+.ct-chart .ct-series-c .ct-point,
+.ct-chart .ct-series-c .ct-line,
+.ct-chart .ct-series-c .ct-bar,
+.ct-chart .ct-series-c .ct-slice-donut,
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  stroke: #59922b;
+}
+
+.ct-chart .ct-series-c .ct-point,
+.ct-chart .ct-series-c .ct-line,
+.ct-chart .ct-series-c .ct-bar,
+.ct-chart .ct-series-c .ct-slice-donut,
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  stroke: #0544d3;
+}
+
+.ct-chart .ct-series-c .ct-point,
+.ct-chart .ct-series-c .ct-line,
+.ct-chart .ct-series-c .ct-bar,
+.ct-chart .ct-series-c .ct-slice-donut,
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  stroke: #f4c63d;
+}
+
+.ct-chart .ct-series-c .ct-point,
+.ct-chart .ct-series-c .ct-line,
+.ct-chart .ct-series-c .ct-bar,
+.ct-chart .ct-series-c .ct-slice-donut,
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  stroke: #86797d;
+}
+
+.ct-chart .ct-series-c .ct-point,
+.ct-chart .ct-series-c .ct-line,
+.ct-chart .ct-series-c .ct-bar,
+.ct-chart .ct-series-c .ct-slice-donut,
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  stroke: #6b0392;
+}
+
 .ct-chart .ct-bar {
   fill: none;
   stroke-width: 10px;
@@ -17974,6 +18024,30 @@ Copyright (c) 2015 Daniel Eden
 .ct-chart .ct-series-c .ct-slice-donut-solid,
 .ct-chart .ct-series-c .ct-area {
   fill: #ff9800;
+}
+
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  fill: #6b0392;
+}
+
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  fill: #86797d;
+}
+
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  fill: #0544d3;
+}
+
+.ct-chart .ct-series-c .ct-slice-pie,
+.ct-chart .ct-series-c .ct-slice-donut-solid,
+.ct-chart .ct-series-c .ct-area {
+  fill: #59922b;
 }
 
 /* perfect-scrollbar v0.6.13 */

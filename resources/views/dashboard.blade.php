@@ -2,26 +2,33 @@
 @push("styles")
  <style>
 .ct-chart.ct-square .ct-series.ct-series-a .ct-slice-pie  {
-   fill:#002827; 
+   /* fill:#002827;  */
+   fill:#FF5E01;
 }
 .ct-chart.ct-square .ct-series.ct-series-b .ct-slice-pie {
-  fill:#00382f;
+  /* fill:#00382f; */
+  fill:#FF6E01;
+
 }
 .ct-chart.ct-square .ct-series.ct-series-c  .ct-slice-pie {
-  fill: #00591e; 
+  /* fill: #00591e;  */
+  fill:  #FF7E01;
 }
 .ct-chart.ct-square .ct-series.ct-series-d .ct-slice-pie {
-   fill : #007f00;
+   /* fill : #007f00; */
+   fill: #FF8D00;
 }
 .ct-chart.ct-square .ct-series.ct-series-e .ct-slice-pie {
-  fill : #009900; 
+  /* fill : #009900;  */
+  fill: #FF9D00;
 
 }
 .ct-chart.ct-square .ct-series.ct-series-f .ct-slice-pie{
-  fill : #00b200; 
+  /* fill : #00b200;  */
+  fill:#F8F658;
 }
 .ct-chart.ct-square .ct-series.ct-series-g .ct-slice-pie {
-   fill: #51ce00;
+   fill: #ceff00;
 }
 .ct-chart.ct-square .ct-series.ct-series-h .ct-slice-pie{
   fill: #96ff00;
@@ -146,12 +153,17 @@
             <span class="sr-only">Loading...</span>
         </button>
       </div>
+
+      {{-- BEGIN ERROR MSG DIV --}}
+      <div class="row">
+        <p id="group1-stats-error-msg" class="text-danger" style="display:none;">Error message must be shown right there</p>
+      </div>
+     {{-- END ERROR MSG DIV --}}
       <div class="row blur-container" id="group-1-stats-container">
         <div class="col-md-4">
           <div class="card card-chart">
             <div class="card-header card-header-info">
               <div class="ct-chart" id="signaledProfiles"></div>
-
             </div>
             <div class="card-body">
               <h4 class="card-title">Profils signalés par jour</h4>
@@ -196,8 +208,10 @@
           </div>
         </div>
 
-        <a class="btn btn-success" style="color:white;">voir anciennes semaines</a>
-
+        <a class="btn btn-success" style="color:white;">
+          <i class="material-icons">chevron_left</i>
+           voir anciennes semaines
+        </a>
       </div>
       {{-- deuxieme ligne des chartes --}}
       <br/><br/><br/>
@@ -208,6 +222,13 @@
             <span class="sr-only">Loading...</span>
         </button>
       </div>
+
+      {{-- BEGIN ERROR MSG DIV --}}
+      <div class="row">
+        <p id="group2-stats-error-msg" class="text-danger" style="display:none;">Error message must be shown right there</p>
+      </div>
+     {{-- END ERROR MSG DIV --}}  
+
       <div id="group-2-stats-container" class="row blur-container">
         <div class="col-md-6">
           <div class="card card-chart">
@@ -242,7 +263,10 @@
           </div>
         </div> 
 
-        <a class="btn btn-success" style="color:white;">voir anciennes semaines</a>
+        <a class="btn btn-success" style="color:white;">
+          <i class="material-icons">chevron_left</i>
+          voir anciennes semaines
+        </a>
 
       </div>
       <br><br><br>
@@ -254,6 +278,11 @@
             <span class="sr-only">Loading...</span>
         </button> 
       </div>
+      {{-- BEGIN ERROR MSG DIV --}}
+      <div class="row">
+        <p id="group3-stats-error-msg" class="text-danger" style="display:none;">Error message must be shown right there</p>
+      </div>
+     {{-- END ERROR MSG DIV --}}        
       <div class="row blur-container" id="last-signaled-posts-and-profiles-container">
      
         <div class="col-lg-6 col-md-12">
