@@ -111,7 +111,7 @@
           </a>
         </div>
 
-          <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-3 col-md-6 col-sm-6">
             <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
 
             <div class="card card-stats">
@@ -143,7 +143,7 @@
       <br/><br/>
 
       <div class="row">
-        <h3 >Statistiques des 7 derniers jours</h3>
+        <h3 >Statistiques par 7  jours</h3>
       </div>
 
       <div class="row">
@@ -171,6 +171,9 @@
             </div>
             <div class="card-footer">
               <div class="stats">
+                <p id="g1-stats-chart1-footer" class="text-success">
+                  du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                </p>
               </div>
             </div>
           </div>
@@ -187,6 +190,9 @@
             </div>
             <div class="card-footer">
               <div class="stats">
+                <p id="g1-stats-chart2-footer" class="text-success">
+                  du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                </p>
               </div>
             </div>
           </div>
@@ -203,15 +209,37 @@
             </div>
             <div class="card-footer">
               <div class="stats">
+                  <p id="g1-stats-chart3-footer" class="text-success">
+                    du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                  </p>
               </div>
             </div>
           </div>
         </div>
 
-        <a class="btn btn-success" style="color:white;">
+        {{-- <a class="btn btn-success" style="color:white;">
           <i class="material-icons">chevron_left</i>
            voir anciennes semaines
-        </a>
+        </a> --}}
+        {{-- BEGIN PAGINATOR ELEMENT --}}
+        <div class="d-flex justify-content-center">
+          <nav>
+            <ul  class="pagination">
+              <li id="g1-paginator-previous-link" class="page-item">
+                 <span class="page-link">« 7 jours antérieurs</span>
+              </li>
+                    
+              <li  id="g1-paginator-next-link" class="page-item disabled"  aria-disabled="true">
+                <span class="page-link"> 7 jours suivants »</span>
+              </li>
+
+              <li>
+                <i id="paginator-spinner-stats-group-1" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
+              </li>
+            </ul>
+          </nav>
+        </div>        
+        {{-- END PAGINATOR ELEMENT --}}
       </div>
       {{-- deuxieme ligne des chartes --}}
       <br/><br/><br/>
@@ -241,6 +269,9 @@
             </div>
             <div class="card-footer">
               <p id="interactions-total">Total d'intéractions = N</p>
+              <p id="g2-stats-chart1-footer" class="text-success">
+                du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+              </p>
             </div>
           </div>
         </div> 
@@ -259,17 +290,38 @@
             <div class="card-footer">
               {{-- <div class="stats"> --}}
               <p id="contributors-total">Total de contributeurs = N</p>
+              <p id="g2-stats-chart2-footer" class="text-success">
+                du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+              </p>
             </div>
           </div>
         </div> 
 
-        <a class="btn btn-success" style="color:white;">
-          <i class="material-icons">chevron_left</i>
-          voir anciennes semaines
-        </a>
+        {{-- BEGIN PAGINATOR ELEMENT --}}
+        <div class="d-flex justify-content-center">
+          <nav>
+            <ul  class="pagination">
+              <li id="g2-paginator-previous-link" class="page-item">
+                 <span class="page-link">« 7 jours antérieurs</span>
+              </li>
+                    
+              <li  id="g2-paginator-next-link" class="page-item disabled"  aria-disabled="true">
+                <span class="page-link"> 7 jours suivants »</span>
+              </li>
+
+              <li>
+                <i id="paginator-spinner-stats-group-2" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
+              </li>
+            </ul>
+          </nav>
+        </div>        
+        {{-- END PAGINATOR ELEMENT --}}        
 
       </div>
       <br><br><br>
+      <div class="row">
+        <h3 >Actions de signal récentes</h3>
+      </div>
       <div class="row">
         <button id="show-last-signaled-posts-profiles-btn" class="btn btn-default">
             Afficher les derniers postes & profils signalés

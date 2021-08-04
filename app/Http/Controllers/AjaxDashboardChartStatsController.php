@@ -17,16 +17,18 @@ class AjaxDashboardChartStatsController extends Controller
     //initDashboardPageCharts G1
     public function getAllChartsStatsForGroup1(Request $request) {
       if($request->ajax()){
-         return json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats());
+         return json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats($request->query("offset")));
       }else{
          //return dd(json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats()));
-         return dd(json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats()));
+         return dd(json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats($request->query("offset"))));
       }
     }
+
+
     //initDashboardPageCharts G2
     public function getAllChartsStatsForGroup2(Request $request) {
       //if($request->ajax()){
-         $tab  = $this->last7DaysStatsService->getGroup2Last7DaysStats();
+         $tab  = $this->last7DaysStatsService->getGroup2Last7DaysStats($request->query("offset"));
          if(is_array($tab) && !empty($tab)){
             $tab = (array)$tab[0];
             arsort($tab);

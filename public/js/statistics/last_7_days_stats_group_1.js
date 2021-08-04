@@ -1,41 +1,62 @@
-function getLast7DaysStatsGroup1(){
+const G1="g1";
+const G2="g2";
+const G3="g3";
+function getLast7DaysStatsGroup1(offset=-1,initLoad = true){
     $.ajax({
-        url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g1",
+        url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g1?offset="+offset,
         type:"GET",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(data) {
             prepareDataToLast7DaysStatsGroup1(data);
-            $("#group-1-stats-container").removeClass("blur-container");
-            $("#show-group-1-stats-btn").hide();
+            if(initLoad){
+              $("#group-1-stats-container").removeClass("blur-container");
+              $("#show-group-1-stats-btn").hide();
+            }else{
+               calculateAndRenderPaginatorDateInterval(offset,G1);
+               $("#paginator-spinner-stats-group-1").hide();
+            }
         },
         error: function(err){
+          $("#group1-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
+          $("#group1-stats-error-msg").show();
+          if(initLoad){
             $("#spinner-stats-group-1").hide();
-            $("#group1-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
-            $("#group1-stats-error-msg").show();
-            console.log(err);
+          }else{
+            $("#paginator-spinner-stats-group-1").hide();
+          }
+          console.log(err);
         }
   });
 }
 
 
-function getLast7DaysStatsGroup2(){
+function getLast7DaysStatsGroup2(offset=-1,initLoad = true){
     $.ajax({
-        url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g2",
+        url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g2?offset="+offset,
         type:"GET",
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(data) {
            prepareDataToLast7DaysStatsGroup2(data);
-           $("#group-2-stats-container").removeClass("blur-container");
-           $("#show-group-2-stats-btn").hide();
+           if(initLoad){
+             $("#group-2-stats-container").removeClass("blur-container");
+             $("#show-group-2-stats-btn").hide();
+           }else{
+              calculateAndRenderPaginatorDateInterval(offset,G2);
+              $("#paginator-spinner-stats-group-2").hide();
+           }
         },
         error: function(err){
-           $("#spinner-stats-group-2").hide();
            $("#group2-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
            $("#group2-stats-error-msg").show();
+           if(initLoad){
+            $("#spinner-stats-group-2").hide();
+           }else{
+            $("#paginator-spinner-stats-group-2").hide();
+           }
            console.log(err);
         }
   });  
@@ -106,10 +127,22 @@ function prepareDataToLast7DaysStatsGroup2(data){
         series: []
     };
 
+   //  var isNullInteractions = true;
+   //  var isNullContributors = true;
+
     keys.forEach(element => {
+ 
       if(element.includes("I")){
+
+      //   if(parseInt(data[element],10)>0)
+      //      isNullInteractions=false;
+       
         dataInteractions.series.push({meta:mapper[element],value:data[element]});
       }else if(element.includes("P")){
+
+      //   if(parseInt(data[element],10)>0)
+      //      isNullContributors=false;
+
         dataContributors.series.push({meta:mapper[element],value:data[element]});
       }
     });
@@ -183,20 +216,81 @@ function renderRowForProfilesDT(domParent,data){
    domParent.append(domElement);  
 }
 
+function calculateAndRenderPaginatorDateInterval(coeff,statsGroup){
+   var startDate = moment().subtract(6*Math.abs(coeff), "days").format("YYYY-MM-DD");
+   var endDate = moment().subtract(6*(Math.abs(coeff)- 1), "days").format("YYYY-MM-DD");
+   $("#"+statsGroup+"-stats-chart1-footer").text("du "+startDate+" jusqu'a "+endDate);
+   $("#"+statsGroup+"-stats-chart2-footer").text("du "+startDate+" jusqu'a "+endDate);
+   if(statsGroup==G1)
+     $("#"+statsGroup+"-stats-chart3-footer").text("du "+startDate+" jusqu'a "+endDate);
+}
+
 $(function(){
   md.initDashboardPageCharts();
+  var g1StatsPaginatorNbrClicks = -1;
+  var g2StatsPaginatorNbrClicks = -1;
+  
+  $("#g1-paginator-previous-link").on("click",function(e){
+     $("#paginator-spinner-stats-group-1").show();
+     $("#group1-stats-error-msg").hide();
+
+     g1StatsPaginatorNbrClicks--;
+     getLast7DaysStatsGroup1(g1StatsPaginatorNbrClicks,false);
+
+     if(g1StatsPaginatorNbrClicks == -2){
+       $("#g1-paginator-next-link").removeClass("disabled");
+       $("#g1-paginator-next-link").attr("aria-disabled",false);
+     }
+  });
+
+  $("#g1-paginator-next-link").on("click",function(e){
+     $("#paginator-spinner-stats-group-1").show();
+     $("#group1-stats-error-msg").hide();
+
+     if(g1StatsPaginatorNbrClicks<=-2){
+        g1StatsPaginatorNbrClicks++;
+     }
+     if(g1StatsPaginatorNbrClicks==-1){
+      $(this).addClass("disabled");
+      $(this).attr("aria-disabled",true);
+     }
+     getLast7DaysStatsGroup1(g1StatsPaginatorNbrClicks,false);
+  });
+
+   //GROUP 2 PIE CHARTS STATS
+  $("#g2-paginator-previous-link").on("click",function(e){
+    $("#paginator-spinner-stats-group-2").show();
+    $("#group2-stats-error-msg").hide();
+
+    g2StatsPaginatorNbrClicks--;
+    getLast7DaysStatsGroup2(g2StatsPaginatorNbrClicks,false);
+
+    if(g2StatsPaginatorNbrClicks == -2){
+     $("#g2-paginator-next-link").removeClass("disabled");
+     $("#g2-paginator-next-link").attr("aria-disabled",false);
+    }
+  });
+
+  $("#g2-paginator-next-link").on("click",function(e){
+    $("#paginator-spinner-stats-group-2").show();
+    $("#group2-stats-error-msg").hide();
+
+    if(g2StatsPaginatorNbrClicks<=-2){
+      g2StatsPaginatorNbrClicks++;
+    }
+    if(g2StatsPaginatorNbrClicks==-1){
+      $(this).addClass("disabled");
+      $(this).attr("aria-disabled",true);
+    }
+    getLast7DaysStatsGroup2(g2StatsPaginatorNbrClicks,false);
+
+  });
 
   $("#show-group-1-stats-btn").on("click",function(e){
      $("#group1-stats-error-msg").hide();
      $("#spinner-stats-group-1").show();
      var _this = this;
      getLast7DaysStatsGroup1();
-
-     setTimeout(function(){
-      //   $("#group-1-stats-container").removeClass("blur-container");
-      //   $(_this).hide();
-     },500);
-     
   });
 
   $("#show-group-2-stats-btn").on("click",function(e){
@@ -204,11 +298,6 @@ $(function(){
      $("#spinner-stats-group-2").show();
      var _this = this;
      getLast7DaysStatsGroup2();
-     setTimeout(function(){
-      //   $("#group-2-stats-container").removeClass("blur-container");
-      //   $(_this).hide();
-     },500);
-
   });
 
 
@@ -217,11 +306,6 @@ $(function(){
      $("#spinner-signals").show();
      var _this = this;
      getLastSignaledPostsAndProfilesGroup3Stats(5);
-     setTimeout(function(){
-      //   $("#last-signaled-posts-and-profiles-container").removeClass("blur-container");
-      //   $(_this).hide();
-     },500);
   });
-
 
  });

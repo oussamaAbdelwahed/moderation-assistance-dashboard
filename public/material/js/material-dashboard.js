@@ -375,45 +375,50 @@ md = {
     var topPosts = Chartist.Bar('#topPosts', dataTopPosts, optionsTopPosts);
     md.startAnimationForBarChart(topPosts);
   },
-  initDashboardPageGroup2Charts: function(dataInteractions,dataContributors){
+  initDashboardPageGroup2Charts: function(dataInteractions,dataContributors,isNullInteractions=false,isNullContributors=false){
     var summation = function(a, b) { return a + b.value };
     var totalInteractions = dataInteractions.series.reduce(summation,0);
     var totalContributions =  dataContributors.series.reduce(summation,0); 
 
     $("#interactions-total").text("Total d'intéractions  = "+totalInteractions);
     $("#contributors-total").text("Total de contributions = "+totalContributions);
-   var optionsInteraction = {
+    var optionsInteraction = {
       labelInterpolationFnc: function(value) {
         return Math.round(value / totalInteractions * 100) + '%';
       },
-      //showLabel: true,
-      //labelOffset: 80,
-      //chartPadding: 0,
-      //labelDirection: 'explode',
+
         plugins: [
         Chartist.plugins.tooltip()
       ]
-}
+    }
 
+    if(totalInteractions==0){
+      $("#postsInteraction").hide();
+    }else{
+      $("#postsInteraction").show();
+      var blogInteraction = new Chartist.Pie('#postsInteraction', dataInteractions,optionsInteraction);
+      md.startAnimationForLineChart(blogInteraction);
+    }
 
-var blogInteraction = new Chartist.Pie('#postsInteraction', dataInteractions,optionsInteraction);
-md.startAnimationForLineChart(blogInteraction);
 
     var optionsContributors = {
       labelInterpolationFnc: function(value) {
         return Math.round(value / totalContributions * 100) + '%';
       },
-      //showLabel: true,
-      //labelOffset: 80,
-      //chartPadding: 0,
-      //labelDirection: 'explode',
+
         plugins: [
         Chartist.plugins.tooltip()
       ]
     }
     
-    var contributorsChart = new Chartist.Pie('#exchangeContributors', dataContributors, optionsContributors);
-    md.startAnimationForLineChart(contributorsChart);  
+    if(totalContributions==0){
+      $("#exchangeContributors").hide();
+    }else{
+      $("#exchangeContributors").show();
+      var contributorsChart = new Chartist.Pie('#exchangeContributors', dataContributors, optionsContributors);
+      md.startAnimationForLineChart(contributorsChart);  
+    }
+
   },
 
   initDashboardPageCharts: function() {
