@@ -375,13 +375,18 @@ md = {
     var topPosts = Chartist.Bar('#topPosts', dataTopPosts, optionsTopPosts);
     md.startAnimationForBarChart(topPosts);
   },
-  initDashboardPageGroup2Charts: function(dataInteractions,dataContributors,isNullInteractions=false,isNullContributors=false){
+  initDashboardPageGroup2Charts: function(dataInteractions,dataContributors,isPerDayPieChars=false){
     var summation = function(a, b) { return a + b.value };
     var totalInteractions = dataInteractions.series.reduce(summation,0);
     var totalContributions =  dataContributors.series.reduce(summation,0); 
+    if(!isPerDayPieChars){
+      $("#interactions-total").text("Total d'intéractions  = "+totalInteractions);
+      $("#contributors-total").text("Total de contributions = "+totalContributions);
+    }else{
+      $("#perDay-interactions-total").text("Total d'intéractions dans le jour = "+totalInteractions);
+      $("#perDay-contributors-total").text("Total de contributions dans le jour = "+totalContributions);
+    }
 
-    $("#interactions-total").text("Total d'intéractions  = "+totalInteractions);
-    $("#contributors-total").text("Total de contributions = "+totalContributions);
     var optionsInteraction = {
       labelInterpolationFnc: function(value) {
         return Math.round(value / totalInteractions * 100) + '%';
@@ -391,12 +396,14 @@ md = {
         Chartist.plugins.tooltip()
       ]
     }
+    var idChart1 = isPerDayPieChars ? "perDayPostsInteraction" : "postsInteraction";
+    var idChart2 = isPerDayPieChars ? "perDayExchangeContributors" : "exchangeContributors";
 
     if(totalInteractions==0){
-      $("#postsInteraction").hide();
+      $("#"+idChart1).hide();
     }else{
-      $("#postsInteraction").show();
-      var blogInteraction = new Chartist.Pie('#postsInteraction', dataInteractions,optionsInteraction);
+      $("#"+idChart1).show();
+      var blogInteraction = new Chartist.Pie("#"+idChart1, dataInteractions,optionsInteraction);
       md.startAnimationForLineChart(blogInteraction);
     }
 
@@ -412,13 +419,12 @@ md = {
     }
     
     if(totalContributions==0){
-      $("#exchangeContributors").hide();
+      $("#"+idChart2).hide();
     }else{
-      $("#exchangeContributors").show();
-      var contributorsChart = new Chartist.Pie('#exchangeContributors', dataContributors, optionsContributors);
+      $("#"+idChart2).show();
+      var contributorsChart = new Chartist.Pie('#'+idChart2, dataContributors, optionsContributors);
       md.startAnimationForLineChart(contributorsChart);  
     }
-
   },
 
   initDashboardPageCharts: function() {
@@ -494,6 +500,36 @@ md = {
       md.startAnimationForLineChart(signaledPosts);
 
 
+      var dataSignaledComments = {
+        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+        series: [
+          [11, 0, 3, 4, 5, 7, 40],
+
+        ]
+      };
+
+      var optionsSignaledComments = {
+        lineSmooth: Chartist.Interpolation.cardinal({
+          tension: 0
+        }),
+        low: 0,
+        high: 1000, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+        chartPadding: {
+          top: 0,
+          right: 0,
+          bottom: 0,
+          left: 0
+        },
+        axisY: {
+          onlyInteger: true
+        },
+        plugins: [
+          Chartist.plugins.tooltip()
+        ]
+      }
+
+      var signaledComments = new Chartist.Line('#signaledComments', dataSignaledComments, optionsSignaledComments);
+      md.startAnimationForLineChart(signaledComments);
 
 
       /* ----------==========     Emails Subscription Chart initialization    ==========---------- */
@@ -585,7 +621,10 @@ var optionsInteraction = {
 
 
 var blogInteraction = new Chartist.Pie('#postsInteraction', dataInteractions,optionsInteraction);
+var blogInteractionPerDay = new Chartist.Pie('#perDayPostsInteraction', dataInteractions,optionsInteraction);
+
 md.startAnimationForLineChart(blogInteraction);
+md.startAnimationForLineChart(blogInteractionPerDay);
 
 
 // contributors chart
@@ -632,7 +671,11 @@ optionsContributors = {
 }
 
 var contributorsChart = new Chartist.Pie('#exchangeContributors', dataContributors, optionsContributors);
+var contributorsChartPerDay = new Chartist.Pie('#perDayExchangeContributors', dataContributors, optionsContributors);
+
+
 md.startAnimationForLineChart(contributorsChart);
+md.startAnimationForLineChart(contributorsChartPerDay);
 
 }
 },

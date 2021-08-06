@@ -1,7 +1,7 @@
 const G1="g1";
 const G2="g2";
 const G3="g3";
-function getLast7DaysStatsGroup1(offset=-1,initLoad = true){
+function getLast7DaysStatsGroup1(offset=1,initLoad = true){
     $.ajax({
         url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g1?offset="+offset,
         type:"GET",
@@ -31,8 +31,39 @@ function getLast7DaysStatsGroup1(offset=-1,initLoad = true){
   });
 }
 
+function getPerDayStatsGroup2(offset=1,initLoad = true){
+   $.ajax({
+      url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-per-day-stats-g2?offset="+offset,
+      type:"GET",
+      dataType: 'json',
+      contentType: 'application/json; charset=utf-8',
+      headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+      success: function(data) {
+         prepareDataToLast7DaysStatsGroup2(data,true);
+         if(initLoad){
+            $("#group-2-perDay-stats-container").removeClass("blur-container");
+            $("#show-perDay-group-2-stats-btn").hide();
+         }else{
+            calculateAndRenderPaginatorDateIntervalForPerDayPieCharts(offset);
+            $("#perDay-paginator-spinner-stats-group-2").hide();
+         }
+      },
+      error: function(err){
+         $("#group2-perDay-stats-error-msg").html("une erreur est survenue, veuillez ressayer plus tard!");
+         $("#group2-perDay-stats-error-msg").show();
+         if(initLoad){
+          $("#spinner-perDay-stats-group-2").hide();
+         }else{
+          $("#perDay-paginator-spinner-stats-group-2").hide();
+         }
+         console.log(err);
+      }
+  });    
 
-function getLast7DaysStatsGroup2(offset=-1,initLoad = true){
+
+}
+
+function getLast7DaysStatsGroup2(offset=1,initLoad = true){
     $.ajax({
         url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g2?offset="+offset,
         type:"GET",
@@ -70,7 +101,6 @@ function getLastSignaledPostsAndProfilesGroup3Stats(n){
         contentType: 'application/json; charset=utf-8',
         headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
         success: function(data) {
-            console.log(data);
             prepareDataToLastSignaledPostsAndProfilesGroup3DataTables(data);
             $("#last-signaled-posts-and-profiles-container").removeClass("blur-container");
             $("#show-last-signaled-posts-profiles-btn").hide();
@@ -101,7 +131,7 @@ function prepareDataToLast7DaysStatsGroup1(data){
     md.initDashboardPageGroup1Charts(dataSignaledProfiles,dataSignaledPosts,dataTopPosts);
 }
 
-function prepareDataToLast7DaysStatsGroup2(data){
+function prepareDataToLast7DaysStatsGroup2(data,isPerDayPieChars=false){
     var keys = Object.keys(data);
     var mapper ={
         "C_I1":"nbr de commentaires",
@@ -127,27 +157,15 @@ function prepareDataToLast7DaysStatsGroup2(data){
         series: []
     };
 
-   //  var isNullInteractions = true;
-   //  var isNullContributors = true;
-
     keys.forEach(element => {
- 
       if(element.includes("I")){
-
-      //   if(parseInt(data[element],10)>0)
-      //      isNullInteractions=false;
-       
         dataInteractions.series.push({meta:mapper[element],value:data[element]});
       }else if(element.includes("P")){
-
-      //   if(parseInt(data[element],10)>0)
-      //      isNullContributors=false;
-
         dataContributors.series.push({meta:mapper[element],value:data[element]});
       }
     });
 
-    md.initDashboardPageGroup2Charts(dataInteractions,dataContributors);
+    md.initDashboardPageGroup2Charts(dataInteractions,dataContributors,isPerDayPieChars);
 }
 
 function prepareDataToLastSignaledPostsAndProfilesGroup3DataTables(data){
@@ -217,44 +235,66 @@ function renderRowForProfilesDT(domParent,data){
 }
 
 function calculateAndRenderPaginatorDateInterval(coeff,statsGroup){
-   var startDate = moment().subtract(6*Math.abs(coeff), "days").format("YYYY-MM-DD");
-   var endDate = moment().subtract(6*(Math.abs(coeff)- 1), "days").format("YYYY-MM-DD");
+   var startDate = moment().subtract(6*coeff, "days").format("YYYY-MM-DD");
+   var endDate = moment().subtract(6*(coeff- 1), "days").format("YYYY-MM-DD");
    $("#"+statsGroup+"-stats-chart1-footer").text("du "+startDate+" jusqu'a "+endDate);
    $("#"+statsGroup+"-stats-chart2-footer").text("du "+startDate+" jusqu'a "+endDate);
    if(statsGroup==G1)
      $("#"+statsGroup+"-stats-chart3-footer").text("du "+startDate+" jusqu'a "+endDate);
 }
 
+function calculateAndRenderPaginatorDateIntervalForPerDayPieCharts(coeff){
+   var searchDate = moment().subtract(coeff - 1, "days").format("YYYY-MM-DD");
+   $("#perDay-g2-stats-chart1-footer").text("dans le jour : "+searchDate );
+   $("#perDay-g2-stats-chart2-footer").text("dans le jour : "+searchDate );
+}
+
+
 $(function(){
   md.initDashboardPageCharts();
-  var g1StatsPaginatorNbrClicks = -1;
-  var g2StatsPaginatorNbrClicks = -1;
+//   var g1StatsPaginatorNbrClicks = -1;
+//   var g2StatsPaginatorNbrClicks = -1;
+  var g1StatsPaginatorNbrClicks = 1;
+  var g2StatsPaginatorNbrClicks = 1;
+
+  //PER DAY PIE CHARTS VARIABLES
+    var perDayG2StatsPaginatorNbrClicks = 1 ;
+    // = 1 Means *1 coefficient on the current day
+  //END PER DAY PIE CHARTS
   
   $("#g1-paginator-previous-link").on("click",function(e){
      $("#paginator-spinner-stats-group-1").show();
      $("#group1-stats-error-msg").hide();
 
-     g1StatsPaginatorNbrClicks--;
+     g1StatsPaginatorNbrClicks++;
      getLast7DaysStatsGroup1(g1StatsPaginatorNbrClicks,false);
 
-     if(g1StatsPaginatorNbrClicks == -2){
+     if(g1StatsPaginatorNbrClicks == 2){
        $("#g1-paginator-next-link").removeClass("disabled");
        $("#g1-paginator-next-link").attr("aria-disabled",false);
      }
   });
 
   $("#g1-paginator-next-link").on("click",function(e){
-     $("#paginator-spinner-stats-group-1").show();
      $("#group1-stats-error-msg").hide();
 
-     if(g1StatsPaginatorNbrClicks<=-2){
-        g1StatsPaginatorNbrClicks++;
+     var fetchData=true;
+     if(g1StatsPaginatorNbrClicks==1){
+       fetchData=false;
      }
-     if(g1StatsPaginatorNbrClicks==-1){
+
+     if(g1StatsPaginatorNbrClicks>=2){
+        g1StatsPaginatorNbrClicks--;
+     }
+     if(g1StatsPaginatorNbrClicks==1){
       $(this).addClass("disabled");
       $(this).attr("aria-disabled",true);
      }
-     getLast7DaysStatsGroup1(g1StatsPaginatorNbrClicks,false);
+
+     if(fetchData){
+       $("#paginator-spinner-stats-group-1").show();
+       getLast7DaysStatsGroup1(g1StatsPaginatorNbrClicks,false);
+     }
   });
 
    //GROUP 2 PIE CHARTS STATS
@@ -262,28 +302,34 @@ $(function(){
     $("#paginator-spinner-stats-group-2").show();
     $("#group2-stats-error-msg").hide();
 
-    g2StatsPaginatorNbrClicks--;
+    g2StatsPaginatorNbrClicks++;
     getLast7DaysStatsGroup2(g2StatsPaginatorNbrClicks,false);
 
-    if(g2StatsPaginatorNbrClicks == -2){
+    if(g2StatsPaginatorNbrClicks == 2){
      $("#g2-paginator-next-link").removeClass("disabled");
      $("#g2-paginator-next-link").attr("aria-disabled",false);
     }
   });
 
   $("#g2-paginator-next-link").on("click",function(e){
-    $("#paginator-spinner-stats-group-2").show();
     $("#group2-stats-error-msg").hide();
 
-    if(g2StatsPaginatorNbrClicks<=-2){
-      g2StatsPaginatorNbrClicks++;
+    var fetchData=true;
+    if(g2StatsPaginatorNbrClicks==1) {
+      fetchData=false;
     }
-    if(g2StatsPaginatorNbrClicks==-1){
+
+    if(g2StatsPaginatorNbrClicks>=2){
+      g2StatsPaginatorNbrClicks--;
+    }
+    if(g2StatsPaginatorNbrClicks==1){
       $(this).addClass("disabled");
       $(this).attr("aria-disabled",true);
     }
-    getLast7DaysStatsGroup2(g2StatsPaginatorNbrClicks,false);
-
+    if(fetchData){
+      $("#paginator-spinner-stats-group-2").show();
+      getLast7DaysStatsGroup2(g2StatsPaginatorNbrClicks,false);
+    }
   });
 
   $("#show-group-1-stats-btn").on("click",function(e){
@@ -300,6 +346,106 @@ $(function(){
      getLast7DaysStatsGroup2();
   });
 
+  //BEGIN WORK PIE CHARTS PER DAY
+  $("#show-perDay-group-2-stats-btn").on("click",function(e){
+    $("#group2-perDay-stats-error-msg").hide();
+    $("#spinner-perDay-stats-group-2").show();
+    var _this = this;
+    getPerDayStatsGroup2();
+  });
+
+  //previous day
+  $("#perDay-g2-paginator-previous-link").on("click",function(e){
+   $("#perDay-paginator-spinner-stats-group-2").show();
+   $("#group2-perDay-stats-error-msg").hide();
+
+   perDayG2StatsPaginatorNbrClicks++;
+   getPerDayStatsGroup2(perDayG2StatsPaginatorNbrClicks,false);
+
+   if(perDayG2StatsPaginatorNbrClicks == 2){
+    $("#perDay-g2-paginator-next-link").removeClass("disabled");
+    $("#perDay-g2-paginator-next-link").attr("aria-disabled",false);
+   }
+   if(perDayG2StatsPaginatorNbrClicks > 7){
+      $("#perWeek-g2-paginator-next-link").removeClass("disabled");
+      $("#perWeek-g2-paginator-next-link").attr("aria-disabled",false);
+   }
+  });
+
+
+ //next day
+ $("#perDay-g2-paginator-next-link").on("click",function(e){
+   $("#group2-perDay-stats-error-msg").hide();
+   var fetchData=true;
+   if(perDayG2StatsPaginatorNbrClicks==1){
+     fetchData=false;
+   }
+  
+   if(perDayG2StatsPaginatorNbrClicks>=2){
+      perDayG2StatsPaginatorNbrClicks--;
+   }
+   if(perDayG2StatsPaginatorNbrClicks==1){
+     $(this).addClass("disabled");
+     $(this).attr("aria-disabled",true);
+   }
+
+   if(perDayG2StatsPaginatorNbrClicks<=7){
+      $("#perWeek-g2-paginator-next-link").addClass("disabled");
+      $("#perWeek-g2-paginator-next-link").attr("aria-disabled",true);
+   }
+
+   if(fetchData){
+     $("#perDay-paginator-spinner-stats-group-2").show();
+     getPerDayStatsGroup2(perDayG2StatsPaginatorNbrClicks,false);
+   }
+ });
+
+ //previous week
+ $("#perWeek-g2-paginator-previous-link").on("click",function(e){
+   $("#perDay-paginator-spinner-stats-group-2").show();
+   $("#group2-perDay-stats-error-msg").hide();
+
+   $("#perDay-g2-paginator-next-link").removeClass("disabled");
+   $("#perDay-g2-paginator-next-link").attr("aria-disabled",false);
+
+   perDayG2StatsPaginatorNbrClicks+=7;
+   getPerDayStatsGroup2(perDayG2StatsPaginatorNbrClicks,false);
+
+   if(perDayG2StatsPaginatorNbrClicks >= 7){
+    $("#perWeek-g2-paginator-next-link").removeClass("disabled");
+    $("#perWeek-g2-paginator-next-link").attr("aria-disabled",false);
+   }
+  });
+
+  //next week
+  $("#perWeek-g2-paginator-next-link").on("click",function(e){
+   $("#group2-perDay-stats-error-msg").hide();
+
+   var fetchData=true;
+   if(perDayG2StatsPaginatorNbrClicks<=7){
+      fetchData=false;
+   }
+  
+   if(perDayG2StatsPaginatorNbrClicks>7){
+      perDayG2StatsPaginatorNbrClicks-=7;
+   }
+   if(perDayG2StatsPaginatorNbrClicks<=7){
+     $(this).addClass("disabled");
+     $(this).attr("aria-disabled",true);
+   }
+
+   if(perDayG2StatsPaginatorNbrClicks==1){
+      $("#perDay-g2-paginator-next-link").addClass("disabled");
+      $("#perDay-g2-paginator-next-link").attr("aria-disabled",true);
+   }
+
+   if(fetchData){
+     $("#perDay-paginator-spinner-stats-group-2").show();
+     getPerDayStatsGroup2(perDayG2StatsPaginatorNbrClicks,false);
+   }
+  });  
+
+  //END WORK PIE CHARTS PER DAY
 
   $("#show-last-signaled-posts-profiles-btn").on("click",function(e){
      $("#group3-stats-error-msg").hide();
@@ -307,5 +453,4 @@ $(function(){
      var _this = this;
      getLastSignaledPostsAndProfilesGroup3Stats(5);
   });
-
  });

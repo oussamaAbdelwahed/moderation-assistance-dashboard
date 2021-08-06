@@ -16,12 +16,9 @@ class AjaxDashboardChartStatsController extends Controller
 
     //initDashboardPageCharts G1
     public function getAllChartsStatsForGroup1(Request $request) {
-      if($request->ajax()){
-         return json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats($request->query("offset")));
-      }else{
-         //return dd(json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats()));
-         return dd(json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats($request->query("offset"))));
-      }
+      //if($request->ajax()){
+        return json_encode($this->last7DaysStatsService->getGroup1Last7DaysStats($request->query("offset")));
+      //}
     }
 
 
@@ -34,7 +31,18 @@ class AjaxDashboardChartStatsController extends Controller
             arsort($tab);
          }
       //}
-         return json_encode($tab);
+        return json_encode($tab);
+    }
+
+    public function getPerDayAllPieChartsStatsForGroup2(Request $request) {
+      //if($request->ajax()){
+        $tab = $this->last7DaysStatsService->getGroup2PerDayLast7DaysStats($request->query("offset")); 
+        if(is_array($tab) && !empty($tab)){
+          $tab = (array)$tab[0];
+          arsort($tab);
+        }
+        return json_encode($tab);
+      //}
     }
 
     public function getLastSignaledPostsAndProfilesGroup3Stats(Request $req) {

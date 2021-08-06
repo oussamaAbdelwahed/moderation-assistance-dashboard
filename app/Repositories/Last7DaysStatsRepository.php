@@ -28,6 +28,16 @@ class Last7DaysStatsRepository {
         return DB::connection("mysql2")->select($sqlQuery);
     }
 
+    public function getGroup2PerDayLast7DaysStats($search_date){
+        $sqlQuery = Config::get('statistics_queries.GET_LAST7DAYS_PER_DAY_GROUP2_COUNTS_QUERY');
+
+        $sqlQuery = str_replace(":search_date", $search_date, $sqlQuery);
+        
+        $sqlQuery  = \AppHelper::instance()::cleanUpSqlQuery($sqlQuery);
+        
+        return DB::connection("mysql2")->select($sqlQuery);      
+    }
+
     public function getLastNSignaledPostsAndProfiles(int $n) {
         $sqlQuery = Config::get('statistics_queries.GET_LAST_N_SIGNALED_POSTS_AND_PROFILES');
         $sqlQuery = str_replace(":N", $n,$sqlQuery);

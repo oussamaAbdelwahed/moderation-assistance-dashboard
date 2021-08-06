@@ -46,7 +46,7 @@
         <h3>Statistiques des 2 derniers jours(hier et aujourd'hui)</h3>
       </div>
       <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
             <div class="card card-stats">
               <div class="card-header card-header-danger card-header-icon">
@@ -60,14 +60,16 @@
               </div>
               <div class="card-footer">
                 <div class="stats">
-                  <p></p>
+                  <p>
+                    du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                  </p>
                 </div>
               </div>
             </div>
            </a>
         </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
           <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
           <div class="card card-stats">
             <div class="card-header card-header-danger card-header-icon">
@@ -81,14 +83,40 @@
 
             <div class="card-footer">
               <div class="stats">
-                <p></p>
+                <p>
+                  du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                </p>
               </div>
             </div>
           </div>
           </a>
         </div>
+
+        {{-- NBR_SIGNALED_COMMENTS --}}
+        <div class="col-lg-4 col-md-6 col-sm-6">
+          <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
+          <div class="card card-stats">
+            <div class="card-header card-header-danger card-header-icon">
+     
+              <div class="card-icon">
+                <i class="material-icons">forum</i>
+              </div>
+              <p class="card-category ">Total de commentaires signalés</p>
+              <h3 class="card-title">{{ $stats['NBR_SIGNALED_COMMENTS'] }}</h3>
+            </div>
+
+            <div class="card-footer">
+              <div class="stats">
+                <p>
+                  du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                </p>
+              </div>
+            </div>
+          </div>
+          </a>
+        </div>        
        
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
 
             <div class="card card-stats">
@@ -104,14 +132,16 @@
  
               <div class="card-footer">
                 <div class="stats">
-                  <p></p>
+                  <p>
+                    du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                  </p>
                 </div>
               </div>
             </div>
           </a>
         </div>
 
-        <div class="col-lg-3 col-md-6 col-sm-6">
+        <div class="col-lg-4 col-md-6 col-sm-6">
             <a data-toggle="tooltip" title="Cliquer pour voir plus" href="#">
 
             <div class="card card-stats">
@@ -127,7 +157,9 @@
 
               <div class="card-footer">
                 <div class="stats">
-                  <p></p>
+                  <p>
+                    du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                  </p>
                    {{-- <i class="material-icons">date_range</i> du 09/07/2021 au 11/07/2021 --}}
                 </div>
               </div>
@@ -143,7 +175,7 @@
       <br/><br/>
 
       <div class="row">
-        <h3 >Statistiques par 7  jours</h3>
+        <h3 >Statistiques sur 7 jours</h3>
       </div>
 
       <div class="row">
@@ -158,9 +190,10 @@
       <div class="row">
         <p id="group1-stats-error-msg" class="text-danger" style="display:none;">Error message must be shown right there</p>
       </div>
+    
      {{-- END ERROR MSG DIV --}}
       <div class="row blur-container" id="group-1-stats-container">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card card-chart">
             <div class="card-header card-header-info">
               <div class="ct-chart" id="signaledProfiles"></div>
@@ -179,7 +212,7 @@
           </div>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card card-chart">
             <div class="card-header card-header-info">
               <div class="ct-chart" id="signaledPosts"></div>    
@@ -198,8 +231,27 @@
           </div>
         </div> 
 
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-info">
+              <div class="ct-chart" id="signaledComments"></div>    
 
-        <div class="col-md-4">
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Commentaires signalés par jour</h4>
+            </div>
+            <div class="card-footer">
+              <div class="stats">
+                <p id="g1-stats-chart2-footer" class="text-success">
+                  du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div> 
+
+
+        <div class="col-md-6">
           <div class="card card-chart">
             <div class="card-header card-header-info">
               <div class="ct-chart" id="topPosts"></div>
@@ -255,6 +307,10 @@
       <div class="row">
         <p id="group2-stats-error-msg" class="text-danger" style="display:none;">Error message must be shown right there</p>
       </div>
+
+      <div class="row">
+        <h3>Statistiques sur la totalité des 7 jours</h3>
+      </div>
      {{-- END ERROR MSG DIV --}}  
 
       <div id="group-2-stats-container" class="row blur-container">
@@ -264,7 +320,6 @@
               <h4 class="card-title">Intéractions sur le blog</h4>
             </div>
             <div class="card-body">
-            
               <div class="ct-chart ct-square" id="postsInteraction"></div> 
             </div>
             <div class="card-footer">
@@ -284,11 +339,8 @@
             </div>
             <div class="card-body">
               <div class="ct-chart ct-square" id="exchangeContributors"></div> 
-
-              {{-- <p class="card-category">Last Campaign Performance</p> --}}
             </div>
             <div class="card-footer">
-              {{-- <div class="stats"> --}}
               <p id="contributors-total">Total de contributeurs = N</p>
               <p id="g2-stats-chart2-footer" class="text-success">
                 du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
@@ -314,8 +366,110 @@
               </li>
             </ul>
           </nav>
-        </div>        
+        </div>     
+      </div>   
         {{-- END PAGINATOR ELEMENT --}}        
+
+
+
+
+
+
+{{-- ****************************************** BEGIN WORK PER DAY PIE CHARTS ****************************************** --}}
+        <br/><br/>
+        <div class="row">
+          <button id="show-perDay-group-2-stats-btn" class="btn btn-default">
+              Afficher les statistiques par jour des 7 derniers jours
+              <i id="spinner-perDay-stats-group-2" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
+              <span class="sr-only">Loading...</span>
+          </button>
+        </div>
+  
+        {{-- BEGIN ERROR MSG DIV --}}
+        <div class="row">
+          <p id="group2-perDay-stats-error-msg" class="text-danger" style="display:none;">Error message must be shown right there</p>
+        </div>
+  
+        <div class="row">
+          <h3>Statistiques par jour</h3>
+        </div>
+       {{-- END ERROR MSG DIV --}}  
+  
+        <div id="group-2-perDay-stats-container" class="row blur-container">
+          <div class="col-md-6">
+            <div class="card card-chart">
+              <div class="card-header card-header-info">
+                <h4 class="card-title">Intéractions sur le blog par jour</h4>
+              </div>
+              <div class="card-body">
+                <div class="ct-chart ct-square" id="perDayPostsInteraction"></div> 
+              </div>
+              <div class="card-footer">
+                <p id="perDay-interactions-total">Total d'intéractions dans ce jour = N</p>
+                <p id="perDay-g2-stats-chart1-footer" class="text-success">
+                  dans le jour : {{ now()->format('Y-m-d') }}
+                </p>
+              </div>
+            </div>
+          </div> 
+  
+          <div class="col-md-6">
+            <div class="card card-chart">
+              <div class="card-header card-header-info">
+                <h4 class="card-title">Contributeurs à l'échange par jour</h4>
+                {{-- <div class="ct-chart" id="websiteViewsChart"></div> --}}
+              </div>
+              <div class="card-body">
+                <div class="ct-chart ct-square" id="perDayExchangeContributors"></div> 
+              </div>
+              <div class="card-footer">
+                {{-- <div class="stats"> --}}
+                <p id="perDay-contributors-total">Total de contributeurs dans ce jour = N</p>
+                <p id="perDay-g2-stats-chart2-footer" class="text-success">
+                  dans le jour : {{ now()->format('Y-m-d') }}
+                </p>
+              </div>
+            </div>
+          </div> 
+  
+          {{-- BEGIN PAGINATOR ELEMENT --}}
+          <div class="d-flex justify-content-center">
+            <nav>
+              {{-- BEGIN PAGINATING BY DAY  --}}
+              <ul  class="pagination">
+                <li id="perDay-g2-paginator-previous-link" class="page-item">
+                   <span class="page-link">« jour précedent</span>
+                </li>
+                      
+                <li  id="perDay-g2-paginator-next-link" class="page-item disabled"  aria-disabled="true">
+                  <span class="page-link"> jour suivant »</span>
+                </li>
+  
+                <li>
+                  <i id="perDay-paginator-spinner-stats-group-2" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
+                </li>
+              </ul>
+             {{-- END PAGINATING BY DAY  --}}
+
+             {{-- BEGIN PAGINATING BY WEEK  --}}
+              <ul  class="pagination">
+                <li id="perWeek-g2-paginator-previous-link" class="page-item">
+                   <span class="page-link">« 7 jours antérieures</span>
+                </li>
+                      
+                <li  id="perWeek-g2-paginator-next-link" class="page-item disabled"  aria-disabled="true">
+                  <span class="page-link"> 7 jours suivants »</span>
+                </li>
+              </ul>
+              {{-- END PAGINATING BY WEEK  --}}
+            </nav>
+          </div>        
+          {{-- END PAGINATOR ELEMENT --}}   
+
+{{-- ****************************************** END WORK PER DAY PIE CHARTS ****************************************** --}}
+
+
+
 
       </div>
       <br><br><br>

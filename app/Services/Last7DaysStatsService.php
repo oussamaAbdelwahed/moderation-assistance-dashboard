@@ -11,9 +11,9 @@ class Last7DaysStatsService {
       $this->last7DaysStatsRepo = $last7DaysStatsRepo;
     }
 
-    public function getGroup1Last7DaysStats($offset=-1) {
-         $start_date = now()->subDays(6*abs($offset))->format('Y-m-d');
-         $end_date = now()->subDays(6*(abs($offset)-1))->format('Y-m-d');
+    public function getGroup1Last7DaysStats($offset=1) {
+         $start_date = now()->subDays(6*$offset)->format('Y-m-d');
+         $end_date = now()->subDays(6*($offset-1))->format('Y-m-d');
 
          $results = [
             "SIGNALED_POSTS" => [],
@@ -23,7 +23,7 @@ class Last7DaysStatsService {
          
          foreach($results as $key=>$value){
            for($i=0;$i<7;$i++)
-               $value[now()->subDays(6*abs($offset))->addDays($i)->format("Y-m-d")] = 0;
+               $value[now()->subDays(6*$offset)->addDays($i)->format("Y-m-d")] = 0;
            
            $results[$key] = $value;
          }
@@ -42,12 +42,17 @@ class Last7DaysStatsService {
         return $results;
     } 
 
-    public function getGroup2Last7DaysStats($offset=-1) {
+    public function getGroup2Last7DaysStats($offset=1) {
       //it should be $start_date = now()->subDays(6)->format('Y-m-d'); but for testing purposes we use 9 instead of 6
-      $start_date = now()->subDays(6*abs($offset))->format('Y-m-d');
-      $end_date = now()->subDays(6*(abs($offset)-1))->format('Y-m-d');
+      $start_date = now()->subDays(6*$offset)->format('Y-m-d');
+      $end_date = now()->subDays(6*($offset-1))->format('Y-m-d');
 
       return $this->last7DaysStatsRepo->getGroup2Last7DaysStats($start_date,$end_date);
+    }
+
+    public function getGroup2PerDayLast7DaysStats($offset=1){
+      $search_date = now()->subDays($offset-1)->format('Y-m-d');
+      return $this->last7DaysStatsRepo->getGroup2PerDayLast7DaysStats($search_date);
     }
 
     public function getLastNSignaledPostsAndProfiles(int $n) {

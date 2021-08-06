@@ -7,7 +7,7 @@
       <div class="row">
         <div class="card">
             <div class="card-header card-header-danger">
-               <h3 class="card-title">Liste des postes récemment signalés</h3>             
+               <h3 class="card-title">Liste des profils récemment signalés</h3>             
             </div>
             <div class="card-body table-responsive">
               <table class="table table-hover">

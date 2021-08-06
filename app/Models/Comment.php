@@ -20,4 +20,13 @@ class Comment extends Model
 
     }
 
+    public function signalers() {
+        return $this->belongsToMany(
+            BlogUser::class,
+            "comment_signals",
+            "comment_id",
+            "user_id"
+        )->withPivot("created_at");
+    }
+
 }

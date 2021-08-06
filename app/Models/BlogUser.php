@@ -72,6 +72,15 @@ class BlogUser extends Model
         )->withPivot("created_at");;
     }
 
+    public function signaledComments() {
+        return $this->belongsToMany(
+            Comment::class,
+            "comment_signals",
+            "user_id",
+            "comment_id"
+        )->withPivot("created_at");
+    }
+
     public function lastSignaledPosts() {
         return $this->belongsToMany(
             Post::class,

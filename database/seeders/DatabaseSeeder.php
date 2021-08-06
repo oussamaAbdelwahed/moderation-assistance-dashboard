@@ -23,7 +23,8 @@ class DatabaseSeeder extends Seeder
             TopicSeeder::class,
             PostTopicSeeder::class,
             CommentSeeder::class,
-            WeightVoteSeeder::class
+            WeightVoteSeeder::class,
+            CommentSignalsSeeder::class
             //other seeders here with order ---> but , we want ids from 
             //previous seeders executions to use them in relationships establishments 
         ]);

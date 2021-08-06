@@ -72,6 +72,8 @@ Route::get("/ajax_test1",[TestDBController::class,"ajaxTest1"]);
 //Route::get("/test2",[TestDBController::class,"ajaxView"]);
 Route::get("/stats/get-last7days-stats-g1",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup1"]);
 Route::get("/stats/get-last7days-stats-g2",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup2"]);
+Route::get("/stats/get-last7days-per-day-stats-g2",[AjaxDashboardChartStatsController::class,"getPerDayAllPieChartsStatsForGroup2"]);
+
 Route::get("/stats/get-last-signaled-posts-and-profiles-stats-g3",[AjaxDashboardChartStatsController::class,"getLastSignaledPostsAndProfilesGroup3Stats"]);
 
 Route::get("/post/signaled-posts",[PostStatsController::class,"getLast5SignaledPosts"])->name("all-signaled-posts");

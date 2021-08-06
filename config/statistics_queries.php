@@ -15,7 +15,10 @@ return [
 			BETWEEN ':start_date' AND ':end_date') as NBR_CREATED_TOPICS,
 			
 			(SELECT COUNT(*) FROM sessions as s where DATE(s.opened_on) 
-			BETWEEN ':start_date' AND ':end_date') as NBR_OPENED_SESSIONS
+			BETWEEN ':start_date' AND ':end_date') as NBR_OPENED_SESSIONS,
+
+			(SELECT COUNT(DISTINCT cs.comment_id) FROM comment_signals as cs where            		DATE(cs.created_at)  BETWEEN 
+			':start_date' AND ':end_date') as NBR_SIGNALED_COMMENTS 
 	",
 
 
@@ -82,54 +85,95 @@ return [
 	",
 
 
-	"LAST_QUERY_V2" => "
-		SELECT DATE(c.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,1 SET_ORDER FROM comments c WHERE DATE(c.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(c.created_at) 
+	// "LAST_QUERY_V2" => "
+	// 	SELECT DATE(c.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,1 SET_ORDER FROM comments c WHERE DATE(c.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(c.created_at) 
 		
-	  UNION ALL 
+	//   UNION ALL 
 	
-		SELECT DATE(ps.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,2 SET_ORDER FROM post_signals ps WHERE DATE(ps.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(ps.created_at) 
+	// 	SELECT DATE(ps.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,2 SET_ORDER FROM post_signals ps WHERE DATE(ps.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(ps.created_at) 
 	
-      UNION ALL
+    //   UNION ALL
 	
-		SELECT DATE(us.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,3 SET_ORDER FROM user_signals us WHERE DATE(us.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(us.created_at) 
+	// 	SELECT DATE(us.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,3 SET_ORDER FROM user_signals us WHERE DATE(us.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(us.created_at) 
 	 
-      UNION ALL
+    //   UNION ALL
 	
-		SELECT DATE(p.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,4 SET_ORDER FROM posts p WHERE DATE(p.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(p.created_at)
+	// 	SELECT DATE(p.created_at) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,4 SET_ORDER FROM posts p WHERE DATE(p.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(p.created_at)
        
-      UNION ALL
+    //   UNION ALL
 	
-		SELECT DATE(t.created_at) AS DAY,COUNT(*)  AS NBR_IN_THE_DAY,5 SET_ORDER  FROM topics t WHERE DATE(t.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(t.created_at)
+	// 	SELECT DATE(t.created_at) AS DAY,COUNT(*)  AS NBR_IN_THE_DAY,5 SET_ORDER  FROM topics t WHERE DATE(t.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(t.created_at)
        
-	  UNION ALL
+	//   UNION ALL
       
-		SELECT DATE(wv.voted_on) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,6 SET_ORDER   FROM weight_votes wv WHERE DATE(wv.voted_on) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(wv.voted_on) 
+	// 	SELECT DATE(wv.voted_on) AS DAY,COUNT(*) AS NBR_IN_THE_DAY,6 SET_ORDER   FROM weight_votes wv WHERE DATE(wv.voted_on) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(wv.voted_on) 
 	   
-      UNION ALL
+    //   UNION ALL
 	
- 		SELECT DATE(p.created_at)  AS DAY,COUNT(DISTINCT p.user_id) AS NBR_IN_THE_DAY,7 SET_ORDER  FROM posts p WHERE DATE(p.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(p.created_at) 
+ 	// 	SELECT DATE(p.created_at)  AS DAY,COUNT(DISTINCT p.user_id) AS NBR_IN_THE_DAY,7 SET_ORDER  FROM posts p WHERE DATE(p.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(p.created_at) 
 	   
-      UNION ALL
+    //   UNION ALL
 	
-		SELECT DATE(c.created_at) AS DATY,COUNT(DISTINCT c.user_id) AS NBR_IN_THE_DAY,8 SET_ORDER  FROM comments c WHERE DATE(c.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(c.created_at) 
+	// 	SELECT DATE(c.created_at) AS DATY,COUNT(DISTINCT c.user_id) AS NBR_IN_THE_DAY,8 SET_ORDER  FROM comments c WHERE DATE(c.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(c.created_at) 
 	   
-      UNION ALL
+    //   UNION ALL
 	
-		SELECT DATE(ps.created_at) AS DAY ,COUNT(DISTINCT ps.user_id) AS NBR_IN_THE_DAY,9 SET_ORDER FROM post_signals ps WHERE DATE(ps.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(ps.created_at)
+	// 	SELECT DATE(ps.created_at) AS DAY ,COUNT(DISTINCT ps.user_id) AS NBR_IN_THE_DAY,9 SET_ORDER FROM post_signals ps WHERE DATE(ps.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(ps.created_at)
        
-      UNION ALL
+    //   UNION ALL
 	
-		SELECT DATE(us.created_at) AS DAY,COUNT(DISTINCT us.user_id) AS NBR_IN_THE_DAY,10 SET_ORDER FROM    user_signals us WHERE DATE(us.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(us.created_at)
+	// 	SELECT DATE(us.created_at) AS DAY,COUNT(DISTINCT us.user_id) AS NBR_IN_THE_DAY,10 SET_ORDER FROM    user_signals us WHERE DATE(us.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(us.created_at)
 	
-      UNION ALL
+    //   UNION ALL
     
-		SELECT DATE(t.created_at) AS DAY, COUNT(DISTINCT t.created_by)  AS NBR_IN_THE_DAY,11 SET_ORDER FROM topics t WHERE DATE(t.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(t.created_at)
+	// 	SELECT DATE(t.created_at) AS DAY, COUNT(DISTINCT t.created_by)  AS NBR_IN_THE_DAY,11 SET_ORDER FROM topics t WHERE DATE(t.created_at) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(t.created_at)
 	
-      UNION ALL
+    //   UNION ALL
     
-		SELECT DATE(wv.voted_on) AS DAY,COUNT(DISTINCT wv.user_id) AS NBR_IN_THE_DAY,12 SET_ORDER FROM weight_votes wv WHERE DATE(wv.voted_on) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(wv.voted_on)
+	// 	SELECT DATE(wv.voted_on) AS DAY,COUNT(DISTINCT wv.user_id) AS NBR_IN_THE_DAY,12 SET_ORDER FROM weight_votes wv WHERE DATE(wv.voted_on) BETWEEN '2021-07-16' AND '2021-07-25' GROUP BY  DATE(wv.voted_on)
        
-     ORDER BY SET_ORDER,DAY;
+    //  ORDER BY SET_ORDER,DAY;
+	// ",
+
+
+	"GET_LAST7DAYS_PER_DAY_GROUP2_COUNTS_QUERY" => "
+	  SELECT 
+
+	   (SELECT COUNT(*) FROM comments c WHERE DATE(c.created_at) =':search_date') 
+	   AS C_I1, 
+	
+	   (SELECT COUNT(*) FROM post_signals ps WHERE DATE(ps.created_at) =':search_date') 
+	   AS C_I2,
+	
+	   (SELECT COUNT(*) FROM user_signals us WHERE DATE(us.created_at) =':search_date') 
+	   AS C_I3,
+	
+	   (SELECT COUNT(*) FROM posts p WHERE DATE(p.created_at) =':search_date') 
+	   AS C_I4, 
+	
+	   (SELECT COUNT(*) FROM topics t WHERE DATE(t.created_at) =':search_date') 
+	   AS C_I5,
+	
+	   (SELECT COUNT(*) FROM weight_votes wv WHERE DATE(wv.voted_on) =':search_date') 
+	   AS C_I6,
+	
+	   (SELECT COUNT(DISTINCT p.user_id) FROM posts p WHERE DATE(p.created_at) =':search_date') 
+	   AS C_P1,
+	
+	   (SELECT COUNT(DISTINCT c.user_id) FROM comments c WHERE DATE(c.created_at) =':search_date') 
+	   AS C_P2,
+	
+	   (SELECT COUNT(DISTINCT ps.user_id) FROM post_signals ps WHERE DATE(ps.created_at) =':search_date') 
+	   AS C_P3,
+	
+	   (SELECT COUNT(DISTINCT us.user_id) FROM user_signals us WHERE DATE(us.created_at) =':search_date') 
+	   AS C_P4,
+	
+	   (SELECT COUNT(DISTINCT t.created_by) FROM topics t WHERE DATE(t.created_at) =':search_date') 
+	   AS C_P5,
+	
+	   (SELECT COUNT(DISTINCT wv.user_id) FROM weight_votes wv WHERE DATE(wv.voted_on) =':search_date') 
+	   AS C_P6;	
 	",
 
 
