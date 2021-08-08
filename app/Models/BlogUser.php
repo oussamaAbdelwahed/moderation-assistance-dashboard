@@ -63,6 +63,8 @@ class BlogUser extends Model
 
 
 
+
+
     public function signaledPosts() {
         return $this->belongsToMany(
             Post::class,
@@ -109,4 +111,5 @@ class BlogUser extends Model
             "user_id"
         )->withPivot("created_at");;      
     }
+ 
 }

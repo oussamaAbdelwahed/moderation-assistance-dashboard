@@ -48,6 +48,7 @@
                   <th>Email</th>
                   <th>Date de naissance</th>
                   <th>Nbr de signals sur la période</th>
+                  <th>Afficher les causes/contextes des signals</th>
                 </thead>
                 <tbody id="dt-posts">
                   @forelse ($data as $item)
@@ -58,6 +59,7 @@
                       <td>{{$item->email}}</td>
                       <td>{{$item->birthdate}}</td>
                       <td>{{$item->nbr_of_signals}}</td>
+                      <td><a href="{{ route('profile-signals-contexts',['id'=>$item->id]) }}" target="_blank"><i class="material-icons">visibility</i></a></td>
                     </tr>
                   @empty
                     <tr>

@@ -18,6 +18,7 @@ class CreateUserSignalsTable extends Migration
             $table->unsignedInteger("user_id");
             $table->unsignedInteger("signaled_id");
             $table->timestamp("created_at")->useCurrent();
+            $table->morphs('context');
 
             $table->foreign("user_id")
               ->references("id")

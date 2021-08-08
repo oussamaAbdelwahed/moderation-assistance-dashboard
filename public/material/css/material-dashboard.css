@@ -17703,6 +17703,7 @@ Copyright (c) 2015 Daniel Eden
   justify-content: flex-end;
   text-align: right;
   text-anchor: end;
+ 
 }
 
 .ct-chart .ct-series-a .ct-slice-pie,
@@ -18906,7 +18907,48 @@ Copyright (c) 2015 Daniel Eden
 
 .ct-square {
   margin: auto;
-  width: 300px;
-  height: 300px;
+  width: 400px;
+  height: 400px;
 }
 /*# sourceMappingURL=dashboard-free.css.map */
+
+.ct-chart.ct-square .ct-series.ct-series-a .ct-slice-pie  {
+  /* fill:#002827;  */
+  fill:#FF5E01;
+
+}
+.ct-chart.ct-square .ct-series.ct-series-b .ct-slice-pie {
+ /* fill:#00382f; */
+ fill:#FF6E01;
+}
+.ct-chart.ct-square .ct-series.ct-series-c  .ct-slice-pie {
+ /* fill: #00591e;  */
+ fill:  #FF7E01;
+}
+.ct-chart.ct-square .ct-series.ct-series-d .ct-slice-pie {
+  /* fill : #007f00; */
+  fill: #FF8D00;
+}
+.ct-chart.ct-square .ct-series.ct-series-e .ct-slice-pie {
+ /* fill : #009900;  */
+ fill: #FF9D00;
+
+}
+.ct-chart.ct-square .ct-series.ct-series-f .ct-slice-pie{
+ /* fill : #00b200;  */
+ fill:#F8F658;
+}
+.ct-chart.ct-square .ct-series.ct-series-g .ct-slice-pie {
+  fill: #ceff00;
+}
+.ct-chart.ct-square .ct-series.ct-series-h .ct-slice-pie{
+ fill: #96ff00;
+}
+.ct-chart.ct-square .ct-series.ct-series-i .ct-slice-pie{
+ fill : #ceff00;
+} 
+
+#postsInteraction, #exchangeContributors, #perDayPostsInteraction, #perDayExchangeContributors{
+  font-size:20px;
+  font-weight: bolder;
+}

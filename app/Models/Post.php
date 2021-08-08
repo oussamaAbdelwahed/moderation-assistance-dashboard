@@ -51,7 +51,10 @@ class Post extends Model
         )->withPivot("created_at");
     }
 
-
+    //for polymorphic relationship
+    public function getSignalsWhenIamAContextOfAUserSignal(){
+        return $this->morphMany(BlogUserSignal::class, 'context');
+    }
 
 
     // public function usersSignals(){

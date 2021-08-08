@@ -40,6 +40,11 @@ return [
 		 GROUP BY wv.post_id,DATE(voted_on) 
 		 HAVING NBR_IN_THE_DAY > 5
 
+		 UNION ALL
+
+         SELECT DATE(created_at) AS DAY,COUNT(*) as NBR_IN_THE_DAY,4 SET_ORDER FROM comment_signals 
+		 WHERE DATE(created_at) BETWEEN ':start_date' AND ':end_date' GROUP BY DATE(created_at) 		 
+
          ORDER BY SET_ORDER,DAY
 	",
 
@@ -177,23 +182,23 @@ return [
 	",
 
 
-	"GET_LAST_N_SIGNALED_POSTS" => "
-	   SELECT p.*,tmpTab.last_signal_date,tmpTab.nbr_of_signals,bu.firstname  AS user_firstname,
-	   bu.lastname AS user_lastname FROM posts p 
-	   INNER JOIN (SELECT ps.post_id ,MAX(ps.created_at) AS last_signal_date, 
-	   COUNT(*) AS nbr_of_signals FROM post_signals ps GROUP BY ps.post_id 
-	   ORDER BY last_signal_date DESC LIMIT :N) tmpTab ON p.id = tmpTab.post_id 
-	   INNER JOIN blog_users bu ON p.user_id = bu.id
-	",
+	// "GET_LAST_N_SIGNALED_POSTS" => "
+	//    SELECT p.*,tmpTab.last_signal_date,tmpTab.nbr_of_signals,bu.firstname  AS user_firstname,
+	//    bu.lastname AS user_lastname FROM posts p 
+	//    INNER JOIN (SELECT ps.post_id ,MAX(ps.created_at) AS last_signal_date, 
+	//    COUNT(*) AS nbr_of_signals FROM post_signals ps GROUP BY ps.post_id 
+	//    ORDER BY last_signal_date DESC LIMIT :N) tmpTab ON p.id = tmpTab.post_id 
+	//    INNER JOIN blog_users bu ON p.user_id = bu.id
+	// ",
 
 
-	"GET_LAST_N_SIGNALED_PROFILES" => "
-       SELECT bu.*,tmpTab.last_signal_date,tmpTab.nbr_of_signals FROM blog_users bu 
-	   INNER JOIN (SELECT us.signaled_id ,MAX(us.created_at) AS last_signal_date , 
-  	   COUNT(*) AS nbr_of_signals FROM user_signals us GROUP BY us.signaled_id 
-	   ORDER BY last_signal_date DESC LIMIT :N) tmpTab 
-	   ON bu.id = tmpTab.signaled_id
-	",
+	// "GET_LAST_N_SIGNALED_PROFILES" => "
+    //    SELECT bu.*,tmpTab.last_signal_date,tmpTab.nbr_of_signals FROM blog_users bu 
+	//    INNER JOIN (SELECT us.signaled_id ,MAX(us.created_at) AS last_signal_date , 
+  	//    COUNT(*) AS nbr_of_signals FROM user_signals us GROUP BY us.signaled_id 
+	//    ORDER BY last_signal_date DESC LIMIT :N) tmpTab 
+	//    ON bu.id = tmpTab.signaled_id
+	// ",
 
 
 	"GET_LAST_N_SIGNALED_POSTS_AND_PROFILES" => "
@@ -202,8 +207,12 @@ return [
 		tmpTab.last_signal_date as LAST_SIGNAL_AT ,
 		tmpTab.nbr_of_signals as NBR_OF_SIGNALS,
 		1 SET_ORDER FROM posts p INNER JOIN 
-		(SELECT ps.post_id ,MAX(ps.created_at) AS last_signal_date, COUNT(*) AS nbr_of_signals
-		 FROM post_signals ps GROUP BY ps.post_id ORDER BY last_signal_date DESC LIMIT :N
+		(SELECT ps.post_id ,MAX(ps.created_at) AS last_signal_date,
+		  COUNT(*) AS nbr_of_signals
+		  FROM post_signals ps 
+		  GROUP BY ps.post_id 
+		  ORDER BY last_signal_date 
+		  DESC LIMIT :N
 		) tmpTab 
 		ON p.id = tmpTab.post_id INNER JOIN blog_users bu 
 		ON p.user_id = bu.id 
@@ -213,9 +222,13 @@ return [
 		SELECT bu.id as C1,bu.firstname as C2,bu.lastname as C3,
 		bu.email as C4,bu.birthdate as C5,tmpTab.last_signal_date as LAST_SIGNAL_AT,
 		tmpTab.nbr_of_signals as NBR_OF_SIGNALS,2 SET_ORDER FROM blog_users bu 
-		INNER JOIN (SELECT us.signaled_id ,MAX(us.created_at) AS last_signal_date,
-		COUNT(*) AS nbr_of_signals FROM user_signals us GROUP BY us.signaled_id 
-		ORDER BY last_signal_date DESC LIMIT :N) tmpTab ON bu.id = tmpTab.signaled_id 
+		INNER JOIN 
+		(SELECT us.signaled_id ,MAX(us.created_at) AS last_signal_date,
+		  COUNT(*) AS nbr_of_signals FROM user_signals us 
+		  GROUP BY us.signaled_id 
+		  ORDER BY last_signal_date 
+		  DESC LIMIT :N
+		) tmpTab ON bu.id = tmpTab.signaled_id 
 		
 		ORDER BY SET_ORDER ASC,LAST_SIGNAL_AT DESC
 	",

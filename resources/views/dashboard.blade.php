@@ -1,44 +1,4 @@
 @extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Tableau de bord')])
-@push("styles")
- <style>
-.ct-chart.ct-square .ct-series.ct-series-a .ct-slice-pie  {
-   /* fill:#002827;  */
-   fill:#FF5E01;
-}
-.ct-chart.ct-square .ct-series.ct-series-b .ct-slice-pie {
-  /* fill:#00382f; */
-  fill:#FF6E01;
-
-}
-.ct-chart.ct-square .ct-series.ct-series-c  .ct-slice-pie {
-  /* fill: #00591e;  */
-  fill:  #FF7E01;
-}
-.ct-chart.ct-square .ct-series.ct-series-d .ct-slice-pie {
-   /* fill : #007f00; */
-   fill: #FF8D00;
-}
-.ct-chart.ct-square .ct-series.ct-series-e .ct-slice-pie {
-  /* fill : #009900;  */
-  fill: #FF9D00;
-
-}
-.ct-chart.ct-square .ct-series.ct-series-f .ct-slice-pie{
-  /* fill : #00b200;  */
-  fill:#F8F658;
-}
-.ct-chart.ct-square .ct-series.ct-series-g .ct-slice-pie {
-   fill: #ceff00;
-}
-.ct-chart.ct-square .ct-series.ct-series-h .ct-slice-pie{
-  fill: #96ff00;
-}
-.ct-chart.ct-square .ct-series.ct-series-i .ct-slice-pie{
-  fill : #ceff00;
-} 
-</style>
-@endpush
-
 @section('content')
   <div class="content">
     <div class="container-fluid">
@@ -59,8 +19,8 @@
                 <h3 class="card-title">{{ $stats['NBR_SIGNALED_PROFILES'] }}</h3>
               </div>
               <div class="card-footer">
-                <div class="stats">
-                  <p>
+                <div>
+                  <p class="text-success">
                     du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                   </p>
                 </div>
@@ -82,8 +42,8 @@
             </div>
 
             <div class="card-footer">
-              <div class="stats">
-                <p>
+              <div>
+                <p class="text-success">
                   du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                 </p>
               </div>
@@ -106,8 +66,8 @@
             </div>
 
             <div class="card-footer">
-              <div class="stats">
-                <p>
+              <div>
+                <p class="text-success">
                   du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                 </p>
               </div>
@@ -131,8 +91,8 @@
               </div>
  
               <div class="card-footer">
-                <div class="stats">
-                  <p>
+                <div>
+                  <p class="text-success">
                     du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                   </p>
                 </div>
@@ -156,11 +116,10 @@
               </div>
 
               <div class="card-footer">
-                <div class="stats">
-                  <p>
+                <div>
+                  <p class="text-success">
                     du {{ now()->subDays(1)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                   </p>
-                   {{-- <i class="material-icons">date_range</i> du 09/07/2021 au 11/07/2021 --}}
                 </div>
               </div>
             </div>
@@ -203,7 +162,7 @@
               <p class="card-category">
             </div>
             <div class="card-footer">
-              <div class="stats">
+              <div>
                 <p id="g1-stats-chart1-footer" class="text-success">
                   du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                 </p>
@@ -222,7 +181,7 @@
               <h4 class="card-title">Postes signalés par jour</h4>
             </div>
             <div class="card-footer">
-              <div class="stats">
+              <div>
                 <p id="g1-stats-chart2-footer" class="text-success">
                   du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                 </p>
@@ -241,8 +200,8 @@
               <h4 class="card-title">Commentaires signalés par jour</h4>
             </div>
             <div class="card-footer">
-              <div class="stats">
-                <p id="g1-stats-chart2-footer" class="text-success">
+              <div>
+                <p id="g1-stats-chart3-footer" class="text-success">
                   du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                 </p>
               </div>
@@ -260,8 +219,8 @@
               <h4 class="card-title">Postes de poids >= 100 par jour</h4>
             </div>
             <div class="card-footer">
-              <div class="stats">
-                  <p id="g1-stats-chart3-footer" class="text-success">
+              <div>
+                  <p id="g1-stats-chart4-footer" class="text-success">
                     du {{ now()->subDays(6)->format('Y-m-d') }} jusqu'a {{ now()->format('Y-m-d') }}
                   </p>
               </div>
@@ -269,11 +228,6 @@
           </div>
         </div>
 
-        {{-- <a class="btn btn-success" style="color:white;">
-          <i class="material-icons">chevron_left</i>
-           voir anciennes semaines
-        </a> --}}
-        {{-- BEGIN PAGINATOR ELEMENT --}}
         <div class="d-flex justify-content-center">
           <nav>
             <ul  class="pagination">
@@ -491,7 +445,7 @@
      {{-- END ERROR MSG DIV --}}        
       <div class="row blur-container" id="last-signaled-posts-and-profiles-container">
      
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-danger">
               <h4 class="card-title">Derniers 5 postes signalés</h4>
@@ -530,7 +484,7 @@
 
 {{-- LAST SIGNALED PROFILES --}}
 
-        <div class="col-lg-6 col-md-12">
+        <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">
               <h4 class="card-title">Derniers 5 profils signalés</h4>
@@ -546,6 +500,7 @@
                   <th>Date de naissance</th>
                   <th>Signalé le(dernier signal)</th>
                   <th>Nombre total de signals</th>
+                  <th>Causes des signals sur ce profil</th>
                 </thead>
                 <tbody id="dt-profiles">
                   <tr>
@@ -556,6 +511,7 @@
                     <td>06/04/2020</td>
                     <td>06/04/2020</td>
                     <td>30</td>
+                    <td><i class="material-icons">visibility</i></td>
                   </tr>
                 </tbody>
               </table>

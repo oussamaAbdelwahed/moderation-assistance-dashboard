@@ -307,7 +307,7 @@ md = {
     }
   },
 
-  initDashboardPageGroup1Charts : function(dataSignaledProfiles,dataSignaledPosts,dataTopPosts){
+  initDashboardPageGroup1Charts : function(dataSignaledProfiles,dataSignaledPosts,dataSignaledComments,dataTopPosts){
     optionsSignaledProfiles = {
       lineSmooth: Chartist.Interpolation.cardinal({
         tension: 0
@@ -348,6 +348,26 @@ md = {
       ]
     }
 
+    optionsSignaledComments = {
+      lineSmooth: Chartist.Interpolation.cardinal({
+        tension: 0
+      }),
+      low: 0,
+      high: Math.max(...dataSignaledComments.series[0]) + 10, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
+      chartPadding: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0
+      },
+      axisY: {
+        onlyInteger: true
+      },
+      plugins: [
+        Chartist.plugins.tooltip()
+      ]
+    }
+
     var optionsTopPosts = {
       axisX: {
         showGrid: false
@@ -371,6 +391,9 @@ md = {
      var signaledPosts = new Chartist.Line('#signaledPosts', dataSignaledPosts, optionsSignaledPosts)
      md.startAnimationForLineChart(signaledPosts);
 
+     var signaledPosts = new Chartist.Line('#signaledComments', dataSignaledComments, optionsSignaledComments)
+     md.startAnimationForLineChart(signaledPosts);
+
 
     var topPosts = Chartist.Bar('#topPosts', dataTopPosts, optionsTopPosts);
     md.startAnimationForBarChart(topPosts);
@@ -392,8 +415,8 @@ md = {
         return Math.round(value / totalInteractions * 100) + '%';
       },
 
-        plugins: [
-        Chartist.plugins.tooltip()
+      plugins: [
+         Chartist.plugins.tooltip()
       ]
     }
     var idChart1 = isPerDayPieChars ? "perDayPostsInteraction" : "postsInteraction";
@@ -413,7 +436,7 @@ md = {
         return Math.round(value / totalContributions * 100) + '%';
       },
 
-        plugins: [
+      plugins: [
         Chartist.plugins.tooltip()
       ]
     }

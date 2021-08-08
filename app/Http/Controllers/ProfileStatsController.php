@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
+
 use Illuminate\Http\Request;
 use  App\Services\BlogUserService;
+use App\Models\BlogUserSignal;
 
 class ProfileStatsController extends Controller
 {
@@ -46,5 +48,14 @@ class ProfileStatsController extends Controller
               ->with("threshold",$threshold)
               ->with("from",$from_date)
               ->with("to",$to_date);
+    }
+
+    public function getSignalsContextsForUser(Request $req,$id){    
+      $signals = BlogUserSignal::where("signaled_id","=",$id)->orderBy("created_at","desc")->with(["signalerUser"])->cursorPaginate(10);
+
+      return view("profile.show_user_associated_signals_with_context")
+      ->with("signals",$signals->appends($req->except('page')))
+      ->with("id",$id)
+      ->with("fullname",$req->query("fullname"));
     }
 }

@@ -3,7 +3,7 @@
 use App\Http\Controllers\AjaxDashboardChartStatsController;
 use App\Http\Controllers\PostStatsController;
 use App\Http\Controllers\ProfileStatsController;
-
+use App\Http\Controllers\CommentStatsController;
 use App\Http\Controllers\TestDBController;
 use Illuminate\Support\Facades\Route;
 
@@ -66,8 +66,8 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-//fo the TestDBController
-//Route::get("/test1",[TestDBController::class,"test1"]);
+
+
 Route::get("/ajax_test1",[TestDBController::class,"ajaxTest1"]);
 //Route::get("/test2",[TestDBController::class,"ajaxView"]);
 Route::get("/stats/get-last7days-stats-g1",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup1"]);
@@ -79,3 +79,10 @@ Route::get("/stats/get-last-signaled-posts-and-profiles-stats-g3",[AjaxDashboard
 Route::get("/post/signaled-posts",[PostStatsController::class,"getLast5SignaledPosts"])->name("all-signaled-posts");
 Route::get("/blog-users/signaled-profiles",[ProfileStatsController::class,"getLast5SignaledProfiles"])->name("all-signaled-profiles");
 Route::get("/blog-users/blacklisted-profiles",[ProfileStatsController::class,"getBlacklistedProfiles"])->name("blacklisted-profiles");
+
+Route::get('/stats/blog-users/signals-contexts/{id}',[ProfileStatsController::class,"getSignalsContextsForUser"])->name("profile-signals-contexts");
+
+//show one for post,comment & profile
+Route::get("/posts/{id}/show",[]);
+Route::get("/comments/{id}/show",[CommentStatsController::class,"show"]);
+Route::get("/profiles/{id}/show",[]);

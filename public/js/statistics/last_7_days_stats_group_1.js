@@ -124,11 +124,17 @@ function prepareDataToLast7DaysStatsGroup1(data){
         labels: Object.keys(data.SIGNALED_POSTS).map(String).map(val=> moment(val, "YYYY-MM-DD").format("ddd")),
         series: [Object.values(data.SIGNALED_POSTS).map(Number)]
     };
+
+    var dataSignaledComments = {
+        labels: Object.keys(data.SIGNALED_COMMENTS).map(String).map(val=> moment(val, "YYYY-MM-DD").format("ddd")),
+        series: [Object.values(data.SIGNALED_COMMENTS).map(Number)]
+    };
+    //
     var dataTopPosts = {
         labels: Object.keys(data.POSTS_WEIGHTED_OVER_THAN_100).map(String).map(val=> moment(val, "YYYY-MM-DD").format("ddd")),
         series: [Object.values(data.POSTS_WEIGHTED_OVER_THAN_100).map(Number)]
     };
-    md.initDashboardPageGroup1Charts(dataSignaledProfiles,dataSignaledPosts,dataTopPosts);
+    md.initDashboardPageGroup1Charts(dataSignaledProfiles,dataSignaledPosts,dataSignaledComments,dataTopPosts);
 }
 
 function prepareDataToLast7DaysStatsGroup2(data,isPerDayPieChars=false){
@@ -230,6 +236,14 @@ function renderRowForProfilesDT(domParent,data){
          $("<td/>",{text:data['LAST_SIGNAL_AT']})
    ).append(
       $("<td/>",{text:data['NBR_OF_SIGNALS']})
+   ).append(
+      $("<td/>").append(
+         $("<a/>",
+            {
+               href:$('meta[name="website-base-url"]').attr('content')+"/stats/blog-users/signals-contexts/"+data['C1']+"?fullname="+data["C3"]+" "+data["C2"],
+               target:"_blank"
+            }).append($("<i/>",{class:"material-icons",text:"visibility"}))
+      )
    );
    domParent.append(domElement);  
 }
@@ -239,8 +253,10 @@ function calculateAndRenderPaginatorDateInterval(coeff,statsGroup){
    var endDate = moment().subtract(6*(coeff- 1), "days").format("YYYY-MM-DD");
    $("#"+statsGroup+"-stats-chart1-footer").text("du "+startDate+" jusqu'a "+endDate);
    $("#"+statsGroup+"-stats-chart2-footer").text("du "+startDate+" jusqu'a "+endDate);
-   if(statsGroup==G1)
-     $("#"+statsGroup+"-stats-chart3-footer").text("du "+startDate+" jusqu'a "+endDate);
+   if(statsGroup==G1){
+     $("#g1-stats-chart3-footer").text("du "+startDate+" jusqu'a "+endDate);
+     $("#g1-stats-chart4-footer").text("du "+startDate+" jusqu'a "+endDate);
+   }
 }
 
 function calculateAndRenderPaginatorDateIntervalForPerDayPieCharts(coeff){
@@ -252,16 +268,10 @@ function calculateAndRenderPaginatorDateIntervalForPerDayPieCharts(coeff){
 
 $(function(){
   md.initDashboardPageCharts();
-//   var g1StatsPaginatorNbrClicks = -1;
-//   var g2StatsPaginatorNbrClicks = -1;
   var g1StatsPaginatorNbrClicks = 1;
   var g2StatsPaginatorNbrClicks = 1;
+  var perDayG2StatsPaginatorNbrClicks = 1 ;
 
-  //PER DAY PIE CHARTS VARIABLES
-    var perDayG2StatsPaginatorNbrClicks = 1 ;
-    // = 1 Means *1 coefficient on the current day
-  //END PER DAY PIE CHARTS
-  
   $("#g1-paginator-previous-link").on("click",function(e){
      $("#paginator-spinner-stats-group-1").show();
      $("#group1-stats-error-msg").hide();

@@ -18,7 +18,8 @@ class Last7DaysStatsService {
          $results = [
             "SIGNALED_POSTS" => [],
             "SIGNALED_PROFILES" => [],
-            "POSTS_WEIGHTED_OVER_THAN_100" => []
+            "POSTS_WEIGHTED_OVER_THAN_100" => [],
+            "SIGNALED_COMMENTS"=>[]
          ];
          
          foreach($results as $key=>$value){
@@ -37,6 +38,8 @@ class Last7DaysStatsService {
              $results["SIGNALED_PROFILES"][$value->DAY] = $value->NBR_IN_THE_DAY;
            }else if($value->SET_ORDER==3){
              $results["POSTS_WEIGHTED_OVER_THAN_100"][$value->DAY] +=1;
+           }else if($value->SET_ORDER==4){
+            $results["SIGNALED_COMMENTS"][$value->DAY] +=1;
            }
         }
         return $results;

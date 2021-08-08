@@ -15,8 +15,8 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            //UsersTableSeeder::class,
-            UsersSignalsSeeder::class,
+            UsersTableSeeder::class,
+            BlogUserSeeder::class,
             PostSeeder::class,
             PostsSignalsSeeder::class,
             SessionSeeder::class,
@@ -24,7 +24,8 @@ class DatabaseSeeder extends Seeder
             PostTopicSeeder::class,
             CommentSeeder::class,
             WeightVoteSeeder::class,
-            CommentSignalsSeeder::class
+            CommentSignalsSeeder::class,
+            UsersSignalsSeeder::class
             //other seeders here with order ---> but , we want ids from 
             //previous seeders executions to use them in relationships establishments 
         ]);
