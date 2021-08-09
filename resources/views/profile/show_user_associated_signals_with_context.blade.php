@@ -5,11 +5,12 @@
       <div class="row">
         <h3>Affichage relatif au signals du profils d'ID {{$id}} associé à l'utilisateur {{$fullname}}</h3>
       </div>
+
       <div class="row">
                  <div class="col-lg-12 col-md-12">
           <div class="card">
             <div class="card-header card-header-warning">
-              <h4 class="card-title">Derniers 5 profils signalés</h4>
+              <h4 class="card-title">Ensemble des signals subis</h4>
               {{-- <p class="card-category">New employees on 15th September, 2016</p> --}}
             </div>
             <div class="card-body table-responsive">
@@ -17,7 +18,7 @@
                 <thead class="text-warning">
                   <th>ID signal</th>
                   <th>date</th>
-                  <th>Cause de signal: Contexte</th>
+                  <th style="font-weight:bolder;">Cause de signal: Contexte</th>
                   <th>Signalé Par(Prénom Nom)</th>
                   {{-- <th>Options</th> --}}
                 </thead>
@@ -26,7 +27,7 @@
                    <tr>
                      <td>{{$signal->id}}</td>
                      <td>{{$signal->created_at}} </td>
-                     <td>La publication du {{explode("\\",$signal->context_type)[2]}} d'ID {{$signal->context_id}}</td>
+                     <td style="color:red;"><a href="{{ $signal->context_type =='App\Models\Post' ? route('show-post',['id'=>$signal->context_id]) : route('show-comment',['id'=>$signal->context_id])  }}" target="_blank">La publication du {{explode("\\",$signal->context_type)[2]}} d'ID {{$signal->context_id}}</a></td>
                      <td>{{$signal->signalerUser->firstname}} {{$signal->signalerUser->lastname}}</td>
                      {{-- <td><i class="material-icons">visibility</i></td> --}}
                    </tr>

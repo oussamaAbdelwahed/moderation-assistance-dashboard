@@ -83,6 +83,6 @@ Route::get("/blog-users/blacklisted-profiles",[ProfileStatsController::class,"ge
 Route::get('/stats/blog-users/signals-contexts/{id}',[ProfileStatsController::class,"getSignalsContextsForUser"])->name("profile-signals-contexts");
 
 //show one for post,comment & profile
-Route::get("/posts/{id}/show",[]);
-Route::get("/comments/{id}/show",[CommentStatsController::class,"show"]);
-Route::get("/profiles/{id}/show",[]);
+Route::get("/posts/{id}/show",[PostStatsController::class,"show"])->name("show-post");
+Route::get("/comments/{id}/show",[CommentStatsController::class,"show"])->name("show-comment");
+Route::get("/profiles/{id}/show",[ProfileStatsController::class,"show"])->name("show-profile");

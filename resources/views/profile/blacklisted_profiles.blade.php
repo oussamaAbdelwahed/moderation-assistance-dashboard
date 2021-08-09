@@ -17,15 +17,15 @@
             @csrf
             <div class="col-md-3">
                <label for="threshold">seuil (nbr de signals)</label>
-              <input name="threshold" type="text" id="threshold" value="5" class="form-control" placeholder="seuil de nbr de signals">
+              <input name="threshold" type="text" id="threshold" value="{{ $threshold }}" class="form-control" placeholder="seuil de nbr de signals">
             </div>
             <div class="col-md-3">
               <label for="from-date">de la date</label>
-              <input name="from-date"  type="date" id="from-date" class="form-control" placeholder="signals à partir de">
+              <input name="from-date" value={{ $from }}  type="date" id="from-date" class="form-control" placeholder="signals à partir de">
             </div>
             <div class="col-md-3">
               <label for="to-date">jusqu'à la date</label>
-              <input name="to-date"  type="date" id="to-date"  class="form-control" placeholder="signals jusqu'au">
+              <input name="to-date" value={{ $to }}  type="date" id="to-date"  class="form-control" placeholder="signals jusqu'au">
             </div>
             <div class="col-md-3">
               <button type="submit" class="btn btn-info btn-round btn-just-icon">
@@ -48,7 +48,7 @@
                   <th>Email</th>
                   <th>Date de naissance</th>
                   <th>Nbr de signals sur la période</th>
-                  <th>Afficher les causes/contextes des signals</th>
+                  <th>Causes des signals sur ce profil</th>
                 </thead>
                 <tbody id="dt-posts">
                   @forelse ($data as $item)
@@ -59,7 +59,7 @@
                       <td>{{$item->email}}</td>
                       <td>{{$item->birthdate}}</td>
                       <td>{{$item->nbr_of_signals}}</td>
-                      <td><a href="{{ route('profile-signals-contexts',['id'=>$item->id]) }}" target="_blank"><i class="material-icons">visibility</i></a></td>
+                      <td><a href="{{ route('profile-signals-contexts',['id'=>$item->id,'fullname'=>$item->firstname.' '.$item->lastname]) }}" target="_blank"><i class="material-icons">visibility</i></a></td>
                     </tr>
                   @empty
                     <tr>

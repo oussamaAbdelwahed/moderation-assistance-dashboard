@@ -26,7 +26,11 @@
                       <td>{{$item->id}}</td>
                       <td>{{$item->title}}</td>
                       <td>{{$item->content}}</td>
-                      <td>{{$item->user_firstname.' '.$item->user_lastname}}</td>
+                      <td>
+                        <a href="{{ route('show-profile',['id'=>$item->user_id]) }}" target="_blank">
+                         {{$item->user_firstname.' '.$item->user_lastname.' ( ID = '.$item->user_id.' )'}}
+                        </a>
+                      </td>
                       <td>{{$item->last_signal_date}}</td>
                       <td>{{$item->nbr_of_signals}}</td>
                     </tr>

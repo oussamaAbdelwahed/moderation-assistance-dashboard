@@ -22,4 +22,8 @@ class PostStatsController extends Controller
       return view("post.signaled_posts")
       ->with("data",$this->postService->getLastNSignaledPosts()->cursorPaginate(10));
     }
+
+    public function show($id){
+      return view("post.show_one")->with("post",Post::with("topics")->findOrFail($id));
+    }
 }

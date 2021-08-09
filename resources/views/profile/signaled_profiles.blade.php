@@ -19,6 +19,10 @@
                   <th>Date de naissance</th>
                   <th>Signalé le(dernier signal)</th>
                   <th>Nombre total de signals</th>
+                  <th>
+                    Causes des signals sur ce profil
+                  </th>
+                  
                 </thead>
                 <tbody id="dt-posts">
                   @forelse($data as $item)
@@ -30,6 +34,14 @@
                       <td>{{$item->birthdate}}</td>
                       <td>{{$item->last_signal_date}}</td>
                       <td>{{$item->nbr_of_signals}}</td>
+                      <td>
+                        <a href="{{  route('profile-signals-contexts',['id'=>$item->id,'fullname'=>$item->firstname.' '.$item->lastname])}}" target="_blank">
+                           <i class="material-icons">
+                            visibility
+                           </i>
+                        </a>
+                      </td>
+
                     </tr>
                   @empty
                     <tr>

@@ -203,7 +203,7 @@ function renderRowForPostsDT(domParent,data){
    ).append(
       $("<td/>",{text:data['C3']})
    ).append(
-      $("<td/>",{text:data['C4']+' '+data['C5']})
+      $("<td/>").append($("<a/>",{href:$('meta[name="website-base-url"]').attr('content')+"/profiles/"+data["C5"]+"/show",text:data['C4']+' ( ID = '+data['C5']+')',target:"_blank"}))
    ).append(
        diff == 0 ? 
          $("<td/>",{css:{color:"green"},text: "Aujourd'hui ("+data['LAST_SIGNAL_AT']+")"})

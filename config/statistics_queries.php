@@ -203,7 +203,7 @@ return [
 
 	"GET_LAST_N_SIGNALED_POSTS_AND_PROFILES" => "
 	    SELECT p.id as C1,p.title as C2,SUBSTRING(p.content FROM 1 FOR 10) as C3,
-		bu.firstname AS C4,bu.lastname AS C5 ,
+		CONCAT(bu.firstname,' ',bu.lastname ) AS C4,bu.id AS C5 ,
 		tmpTab.last_signal_date as LAST_SIGNAL_AT ,
 		tmpTab.nbr_of_signals as NBR_OF_SIGNALS,
 		1 SET_ORDER FROM posts p INNER JOIN 

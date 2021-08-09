@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use  App\Services\BlogUserService;
 use App\Models\BlogUserSignal;
-
+use App\Models\BlogUser;
 class ProfileStatsController extends Controller
 {
 
@@ -23,6 +23,12 @@ class ProfileStatsController extends Controller
       ->with("data",$this->blogUserService->getLastNSignaledBlogUsers()->cursorPaginate(10));
     }
 
+
+
+
+
+
+    
     public function getBlacklistedProfiles(Request $req){
       $threshold = 1;
       $from_date = '1970-01-01';
@@ -50,6 +56,13 @@ class ProfileStatsController extends Controller
               ->with("to",$to_date);
     }
 
+
+
+
+
+
+
+
     public function getSignalsContextsForUser(Request $req,$id){    
       $signals = BlogUserSignal::where("signaled_id","=",$id)->orderBy("created_at","desc")->with(["signalerUser"])->cursorPaginate(10);
 
@@ -57,5 +70,10 @@ class ProfileStatsController extends Controller
       ->with("signals",$signals->appends($req->except('page')))
       ->with("id",$id)
       ->with("fullname",$req->query("fullname"));
+    }
+
+    
+    public function show($id){
+      return view("profile.show_one")->with("profile",BlogUser::findOrFail($id));
     }
 }
