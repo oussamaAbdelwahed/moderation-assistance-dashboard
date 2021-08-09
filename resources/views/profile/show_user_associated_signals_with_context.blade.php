@@ -3,7 +3,7 @@
 <div class="content">
     <div class="container-fluid">
       <div class="row">
-        <h3>Affichage relatif au signals du profils d'ID {{$id}} associé à l'utilisateur {{$fullname}}</h3>
+        <h3>Affichage relatif aux signals subis par le profil utilisateur d'ID {{$id}} associé à l'utilisateur {{$fullname}}</h3>
       </div>
 
       <div class="row">
@@ -19,7 +19,7 @@
                   <th>ID signal</th>
                   <th>date</th>
                   <th style="font-weight:bolder;">Cause de signal: Contexte</th>
-                  <th>Signalé Par(Prénom Nom)</th>
+                  <th>Signalé Par</th>
                   {{-- <th>Options</th> --}}
                 </thead>
                 <tbody id="dt-profiles">
@@ -28,7 +28,7 @@
                      <td>{{$signal->id}}</td>
                      <td>{{$signal->created_at}} </td>
                      <td style="color:red;"><a href="{{ $signal->context_type =='App\Models\Post' ? route('show-post',['id'=>$signal->context_id]) : route('show-comment',['id'=>$signal->context_id])  }}" target="_blank">La publication du {{explode("\\",$signal->context_type)[2]}} d'ID {{$signal->context_id}}</a></td>
-                     <td>{{$signal->signalerUser->firstname}} {{$signal->signalerUser->lastname}}</td>
+                     <td><a href="{{ route('show-profile',['id'=>$signal->user_id]) }}" target="_blank">L'utlisateur {{$signal->signalerUser->firstname}} {{$signal->signalerUser->lastname}} d'ID {{ $signal->user_id }}</a></td>
                      {{-- <td><i class="material-icons">visibility</i></td> --}}
                    </tr>
                  @endforeach

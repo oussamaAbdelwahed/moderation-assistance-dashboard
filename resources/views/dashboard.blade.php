@@ -500,7 +500,7 @@
                   <th>Date de naissance</th>
                   <th>Signalé le(dernier signal)</th>
                   <th>Nombre total de signals</th>
-                  <th>Causes des signals sur ce profil</th>
+                  <th>Signals & causes</th>
                 </thead>
                 <tbody id="dt-profiles">
                   <tr>

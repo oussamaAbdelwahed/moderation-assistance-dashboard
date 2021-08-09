@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+
     /**
      * Show the form for editing the profile.
      *

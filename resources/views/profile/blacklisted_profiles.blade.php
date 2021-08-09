@@ -48,7 +48,7 @@
                   <th>Email</th>
                   <th>Date de naissance</th>
                   <th>Nbr de signals sur la période</th>
-                  <th>Causes des signals sur ce profil</th>
+                  <th>Signals & causes</th>
                 </thead>
                 <tbody id="dt-posts">
                   @forelse ($data as $item)
