@@ -60,15 +60,18 @@ return [
 	
 	   (SELECT COUNT(*) FROM user_signals us WHERE DATE(us.created_at) BETWEEN ':start_date' AND ':end_date') 
 	   AS C_I3,
-	
+
+	   (SELECT COUNT(*) FROM comment_signals cs WHERE DATE(cs.created_at) BETWEEN ':start_date' AND ':end_date') 
+	   AS C_I4,
+
 	   (SELECT COUNT(*) FROM posts p WHERE DATE(p.created_at) BETWEEN ':start_date' AND ':end_date') 
-	   AS C_I4, 
+	   AS C_I5, 
 	
 	   (SELECT COUNT(*) FROM topics t WHERE DATE(t.created_at) BETWEEN ':start_date' AND ':end_date') 
-	   AS C_I5,
+	   AS C_I6,
 	
 	   (SELECT COUNT(*) FROM weight_votes wv WHERE DATE(wv.voted_on) BETWEEN ':start_date' AND ':end_date') 
-	   AS C_I6,
+	   AS C_I7,
 	
 	   (SELECT COUNT(DISTINCT p.user_id) FROM posts p WHERE DATE(p.created_at) BETWEEN ':start_date' AND ':end_date') 
 	   AS C_P1,
@@ -78,15 +81,18 @@ return [
 	
 	   (SELECT COUNT(DISTINCT ps.user_id) FROM post_signals ps WHERE DATE(ps.created_at) BETWEEN ':start_date' AND ':end_date') 
 	   AS C_P3,
-	
-	   (SELECT COUNT(DISTINCT us.user_id) FROM user_signals us WHERE DATE(us.created_at) BETWEEN ':start_date' AND ':end_date') 
+
+	   (SELECT COUNT(DISTINCT cs.user_id) FROM comment_signals  cs WHERE DATE(cs.created_at) BETWEEN ':start_date' AND ':end_date') 
 	   AS C_P4,
 	
-	   (SELECT COUNT(DISTINCT t.created_by) FROM topics t WHERE DATE(t.created_at) BETWEEN ':start_date' AND ':end_date') 
+	   (SELECT COUNT(DISTINCT us.user_id) FROM user_signals us WHERE DATE(us.created_at) BETWEEN ':start_date' AND ':end_date') 
 	   AS C_P5,
 	
+	   (SELECT COUNT(DISTINCT t.created_by) FROM topics t WHERE DATE(t.created_at) BETWEEN ':start_date' AND ':end_date') 
+	   AS C_P6,
+	
 	   (SELECT COUNT(DISTINCT wv.user_id) FROM weight_votes wv WHERE DATE(wv.voted_on) BETWEEN ':start_date' AND ':end_date') 
-	   AS C_P6;
+	   AS C_P7;
 	",
 
 
@@ -152,15 +158,18 @@ return [
 	
 	   (SELECT COUNT(*) FROM user_signals us WHERE DATE(us.created_at) =':search_date') 
 	   AS C_I3,
+
+	   (SELECT COUNT(*) FROM comment_signals cs WHERE DATE(cs.created_at) =':search_date') 
+	   AS C_I4,
 	
 	   (SELECT COUNT(*) FROM posts p WHERE DATE(p.created_at) =':search_date') 
-	   AS C_I4, 
+	   AS C_I5, 
 	
 	   (SELECT COUNT(*) FROM topics t WHERE DATE(t.created_at) =':search_date') 
-	   AS C_I5,
+	   AS C_I6,
 	
 	   (SELECT COUNT(*) FROM weight_votes wv WHERE DATE(wv.voted_on) =':search_date') 
-	   AS C_I6,
+	   AS C_I7,
 	
 	   (SELECT COUNT(DISTINCT p.user_id) FROM posts p WHERE DATE(p.created_at) =':search_date') 
 	   AS C_P1,
@@ -170,15 +179,18 @@ return [
 	
 	   (SELECT COUNT(DISTINCT ps.user_id) FROM post_signals ps WHERE DATE(ps.created_at) =':search_date') 
 	   AS C_P3,
-	
-	   (SELECT COUNT(DISTINCT us.user_id) FROM user_signals us WHERE DATE(us.created_at) =':search_date') 
+
+	   (SELECT COUNT(DISTINCT cs.user_id) FROM comment_signals cs WHERE DATE(cs.created_at) =':search_date') 
 	   AS C_P4,
 	
-	   (SELECT COUNT(DISTINCT t.created_by) FROM topics t WHERE DATE(t.created_at) =':search_date') 
+	   (SELECT COUNT(DISTINCT us.user_id) FROM user_signals us WHERE DATE(us.created_at) =':search_date') 
 	   AS C_P5,
 	
+	   (SELECT COUNT(DISTINCT t.created_by) FROM topics t WHERE DATE(t.created_at) =':search_date') 
+	   AS C_P6,
+	
 	   (SELECT COUNT(DISTINCT wv.user_id) FROM weight_votes wv WHERE DATE(wv.voted_on) =':search_date') 
-	   AS C_P6;	
+	   AS C_P7;	
 	",
 
 

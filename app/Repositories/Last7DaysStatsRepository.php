@@ -17,6 +17,9 @@ class Last7DaysStatsRepository {
         return DB::connection("mysql2")->select($sqlQuery);
     }
 
+
+    
+
     public function getGroup2Last7DaysStats($start_date,$end_date){
         $sqlQuery = Config::get('statistics_queries.GET_LAST7DAYS_GROUP2_COUNTS_QUERY');
 
@@ -37,6 +40,11 @@ class Last7DaysStatsRepository {
         
         return DB::connection("mysql2")->select($sqlQuery);      
     }
+
+
+
+
+
 
     public function getLastNSignaledPostsAndProfiles(int $n) {
         $sqlQuery = Config::get('statistics_queries.GET_LAST_N_SIGNALED_POSTS_AND_PROFILES');

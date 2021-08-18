@@ -22,7 +22,6 @@ class AjaxDashboardChartStatsController extends Controller
     }
 
 
-    //initDashboardPageCharts G2
     public function getAllChartsStatsForGroup2(Request $request) {
       //if($request->ajax()){
          $tab  = $this->last7DaysStatsService->getGroup2Last7DaysStats($request->query("offset"));

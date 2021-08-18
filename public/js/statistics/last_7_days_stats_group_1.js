@@ -143,16 +143,18 @@ function prepareDataToLast7DaysStatsGroup2(data,isPerDayPieChars=false){
         "C_I1":"nbr de commentaires",
         "C_I2":"nbr de signals de postes",
         "C_I3":"nbr de signals de profils",
-        "C_I4":"nbr de postes",
-        "C_I5":"nbr de topics",
-        "C_I6":"nbr de votes poids",
+        "C_I4": "nbr de signals de commentaires",
+        "C_I5":"nbr de postes",
+        "C_I6":"nbr de topics",
+        "C_I7":"nbr de votes poids",
 
         "C_P1":"nbr de publicataires des postes",
         "C_P2":"nbr de commentateurs",
         "C_P3":"nbr de signaleurs de postes",
-        "C_P4":"nbr de signaleurs de profils",
-        "C_P5":"nbr de créateurs de topics",
-        "C_P6":"nbr de voteurs de poids"
+        "C_P4":"nbr de signaleurs de commentaires",
+        "C_P5":"nbr de signaleurs de profils",
+        "C_P6":"nbr de créateurs de topics",
+        "C_P7":"nbr de voteurs de poids"
     };
     
     var dataInteractions = {
