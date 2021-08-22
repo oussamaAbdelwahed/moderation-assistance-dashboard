@@ -19,7 +19,7 @@ class PostsSignalsSeeder extends Seeder
     {
         $usersIds = BlogUser::where('id' ,'>' ,0)->pluck('id')->toArray();
         $postsIds = Post::where('id' ,'>' ,0)->pluck('id')->toArray();
-        for($i=0;$i<100;$i++){
+        for($i=0;$i<137;$i++){
             DB::connection("mysql2")->table("post_signals")->insert([
              "user_id" => $usersIds[array_rand($usersIds)],
              "post_id" => $postsIds[array_rand($postsIds)],

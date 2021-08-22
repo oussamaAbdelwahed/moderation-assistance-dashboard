@@ -44,9 +44,9 @@ class AjaxDashboardChartStatsController extends Controller
       //}
     }
 
-    public function getLastSignaledPostsAndProfilesGroup3Stats(Request $req) {
+    public function getLastSignaledPostsAndProfilesAndCommentsGroup3Stats(Request $req) {
       //if($request->ajax()){
-        return json_encode($this->last7DaysStatsService->getLastNSignaledPostsAndProfiles($req->query("n") ?? 5));
+        return json_encode($this->last7DaysStatsService->getLastNSignaledPostsAndProfilesAndComments($req->query("n") ?? 5));
       //} 
    }
 }

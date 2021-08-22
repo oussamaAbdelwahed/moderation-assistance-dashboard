@@ -68,8 +68,14 @@
             </li>
             <li class="nav-item{{ $activePage == 'signaled-profiles' ? ' active' : '' }}">
               <a class="nav-link" href="{{ route('all-signaled-profiles') }}">
-                <i class="material-icons">content_paste</i>
+                <i class="material-icons">people</i>
                 <p>{{ __('Profils') }}</p>
+              </a>
+            </li> 
+            <li class="nav-item{{ $activePage == 'signaled-comments' ? ' active' : '' }}">
+              <a class="nav-link" href="{{ route('all-signaled-comments') }}">
+                <i class="material-icons">forum</i>
+                <p>{{ __('Commentaires') }}</p>
               </a>
             </li> 
           </ul>

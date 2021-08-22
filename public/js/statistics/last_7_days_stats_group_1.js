@@ -179,17 +179,23 @@ function prepareDataToLast7DaysStatsGroup2(data,isPerDayPieChars=false){
 function prepareDataToLastSignaledPostsAndProfilesGroup3DataTables(data){
    var postsDT=  $("#dt-posts");
    var profilesDT=  $("#dt-profiles");
+   var commentsDT=  $("#dt-comments");
    postsDT.empty();
    profilesDT.empty();
+   commentsDT.empty();
+
    if(Array.isArray(data)){
       var size = data.length;
-      var middle = size / 2;
+      var oneThird = size / 3;
 
-      for(var i=0;i<middle;i++){
+      for(var i=0;i<oneThird;i++){
         renderRowForPostsDT(postsDT,data[i]);
       }
-      for(var i=middle;i<size;i++){
+      for(var i=oneThird;i<2*oneThird;i++){
         renderRowForProfilesDT(profilesDT,data[i]);
+      }
+      for(var i=2*oneThird;i<size;i++){
+         renderRowForCommentsDT(commentsDT,data[i]);
       }
    }else{
        //clear up the data table with so 0 records
@@ -214,7 +220,16 @@ function renderRowForPostsDT(domParent,data){
 
    ).append(
       $("<td/>",{text:data['NBR_OF_SIGNALS']})
+   ).append(
+      $("<td/>").append(
+         $("<a/>",
+            {
+               href:$('meta[name="website-base-url"]').attr('content')+"/stats/post/"+data['C1']+"/signals",
+               target:"_blank"
+            }).append($("<i/>",{class:"material-icons",text:"visibility"}))
+      )
    );
+   //
    domParent.append(domElement);
 }
 
@@ -248,6 +263,33 @@ function renderRowForProfilesDT(domParent,data){
       )
    );
    domParent.append(domElement);  
+}
+
+
+function renderRowForCommentsDT(domParent,data){
+   var diff = moment().diff(moment(data['LAST_SIGNAL_AT'],'YYYY-MM-DD hh:mm:ss'),"days");
+   var domElement = $("<tr/>").append(
+      $("<td/>",{text:data['C1']})
+   ).append(
+      $("<td/>",{text:data['C2']})
+   ).append(
+      $("<td/>").append($("<a/>",{href:$('meta[name="website-base-url"]').attr('content')+"/posts/"+data["C3"]+"/show",text:"ID = "+data["C3"],target:"_blank"}))
+   ).append(
+      $("<td/>").append($("<a/>",{href:$('meta[name="website-base-url"]').attr('content')+"/profiles/"+data["C5"]+"/show",text:" l'utilisateur "+data["C5"]+"d'ID = "+data["C4"],target:"_blank"}))
+   ).append(
+      $("<td/>",{text:data['LAST_SIGNAL_AT']})
+   ).append(
+      $("<td/>",{text:data['NBR_OF_SIGNALS']})
+   ).append(
+      $("<td/>").append(
+         $("<a/>",
+            {
+               href:$('meta[name="website-base-url"]').attr('content')+"/stats/comment/"+data['C1']+"/signals",
+               target:"_blank"
+            }).append($("<i/>",{class:"material-icons",text:"visibility"}))
+      )
+   );
+   domParent.append(domElement);
 }
 
 function calculateAndRenderPaginatorDateInterval(coeff,statsGroup){

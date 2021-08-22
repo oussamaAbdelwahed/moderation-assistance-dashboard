@@ -432,7 +432,7 @@
       </div>
       <div class="row">
         <button id="show-last-signaled-posts-profiles-btn" class="btn btn-default">
-            Afficher les derniers postes & profils signalés
+            Afficher les derniers postes,profils et commentaires signalés
             {{-- <i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> --}}
             <i id="spinner-signals" class="fa fa-circle-o-notch fa-spin fa-3x fa-fw" style="display:none;"></i>
             <span class="sr-only">Loading...</span>
@@ -457,9 +457,10 @@
                   <th>ID</th>
                   <th>Titre</th>
                   <th>Contenu</th>
-                  <th>Signalé par(dernier signal)</th>
+                  <th>Publié par</th>
                   <th>Signalé le(dernier signal)</th>
                   <th>Nombre total de signals</th>
+                  <th>Liste de signals subis</th>
                   {{-- <th>Voir plus</th> --}}
                 </thead>
                 <tbody id="dt-posts">
@@ -470,6 +471,7 @@
                     <td>nom/prenom signaleur</td>
                     <td>06/04/2020</td>
                     <td>20</td>
+                    <td><i class="material-icons">visibility</i></td>
                   </tr>
                 </tbody>
               </table>
@@ -523,7 +525,54 @@
             </a>
           </div>
         </div>
+     
+
+      {{-- LAST SIGNALED COMMENTS --}}
+
+      <div class="col-lg-12 col-md-12">
+        <div class="card">
+          <div class="card-header card-header-info">
+            <h4 class="card-title">Derniers 5 commentaires signalés</h4>
+            {{-- <p class="card-category">New employees on 15th September, 2016</p> --}}
+          </div>
+          <div class="card-body table-responsive">
+            <table class="table table-hover">
+              <thead class="text-warning">
+                <th>ID</th>
+                <th>Contenu</th>
+                <th>Rattaché au poste d'ID</th>
+                <th>Publié par</th>
+                <th>Signalé le(dernier signal)</th>
+                <th>Nombre total de signals</th>
+                <th>Liste de signals subis</th>
+
+                {{-- <th>Voir plus</th> --}}
+              </thead>
+              <tbody id="dt-comments">
+                <tr>
+                  <td>1</td>
+                  <td>text</td>
+                  <td>3</td>
+                  <td>nom/prenom signaleur</td>
+                  <td>06/04/2020</td>
+                  <td>20</td>
+                  <td><i class="material-icons">visibility</i></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="card-footer">
+          <a href="{{route('all-signaled-comments')}}" class="btn btn-success">
+             Voir tous
+          </a>
+        </div>
       </div>
+    </div>
+    </div>
+
+
+
     </div>
   </div>
 @endsection

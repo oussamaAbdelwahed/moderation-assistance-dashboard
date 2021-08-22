@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\BlogUser;
 use App\Models\Post;
+use App\Models\PostSignal;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -25,5 +26,13 @@ class PostStatsController extends Controller
 
     public function show($id){
       return view("post.show_one")->with("post",Post::with("topics")->findOrFail($id));
+    }
+
+    public function getSignalsForPost($id){    
+      $signals = PostSignal::where("post_id","=",$id)->orderBy("created_at","desc")->with(["signalerUser"])->cursorPaginate(10);
+
+      return view("post.associated_signals")
+      ->with("signals",$signals)
+      ->with("id",$id);
     }
 }

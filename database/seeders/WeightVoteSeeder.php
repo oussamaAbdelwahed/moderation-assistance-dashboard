@@ -14,6 +14,6 @@ class WeightVoteSeeder extends Seeder
      */
     public function run()
     {
-        WeightVote::factory()->count(250)->create();
+        WeightVote::factory()->count(56)->create();
     }
 }

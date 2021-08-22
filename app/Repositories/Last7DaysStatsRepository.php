@@ -46,8 +46,8 @@ class Last7DaysStatsRepository {
 
 
 
-    public function getLastNSignaledPostsAndProfiles(int $n) {
-        $sqlQuery = Config::get('statistics_queries.GET_LAST_N_SIGNALED_POSTS_AND_PROFILES');
+    public function getLastNSignaledPostsAndProfilesAndComments(int $n) {
+        $sqlQuery = Config::get('statistics_queries.GET_LAST_N_SIGNALED_POSTS_AND_PROFILES_AND_COMMENTS');
         $sqlQuery = str_replace(":N", $n,$sqlQuery);
         $sqlQuery  = \AppHelper::instance()::cleanUpSqlQuery($sqlQuery);
 

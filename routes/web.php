@@ -4,7 +4,6 @@ use App\Http\Controllers\AjaxDashboardChartStatsController;
 use App\Http\Controllers\PostStatsController;
 use App\Http\Controllers\ProfileStatsController;
 use App\Http\Controllers\CommentStatsController;
-use App\Http\Controllers\TestDBController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,35 +27,6 @@ Auth::routes();
 
 Route::get('/dashboard', 'App\Http\Controllers\HomeController@index')->name('home')->middleware('auth');
 
-// Route::group(['middleware' => 'auth'], function () {
-// 	Route::get('table-list', function () {
-// 		return view('pages.table_list');
-// 	})->name('table');
-
-// 	Route::get('typography', function () {
-// 		return view('pages.typography');
-// 	})->name('typography');
-
-// 	Route::get('icons', function () {
-// 		return view('pages.icons');
-// 	})->name('icons');
-
-// 	Route::get('map', function () {
-// 		return view('pages.map');
-// 	})->name('map');
-
-// 	Route::get('notifications', function () {
-// 		return view('pages.notifications');
-// 	})->name('notifications');
-
-// 	Route::get('rtl-support', function () {
-// 		return view('pages.language');
-// 	})->name('language');
-
-// 	Route::get('upgrade', function () {
-// 		return view('pages.upgrade');
-// 	})->name('upgrade');
-// });
 
 Route::group(['middleware' => 'auth'], function () {
 	Route::resource('user', 'App\Http\Controllers\UserController', ['except' => ['show']])->middleware("super_moderator");
@@ -72,13 +42,19 @@ Route::get("/stats/get-last7days-stats-g1",[AjaxDashboardChartStatsController::c
 Route::get("/stats/get-last7days-stats-g2",[AjaxDashboardChartStatsController::class,"getAllChartsStatsForGroup2"]);
 Route::get("/stats/get-last7days-per-day-stats-g2",[AjaxDashboardChartStatsController::class,"getPerDayAllPieChartsStatsForGroup2"]);
 
-Route::get("/stats/get-last-signaled-posts-and-profiles-stats-g3",[AjaxDashboardChartStatsController::class,"getLastSignaledPostsAndProfilesGroup3Stats"]);
+Route::get("/stats/get-last-signaled-posts-and-profiles-stats-g3",[AjaxDashboardChartStatsController::class,"getLastSignaledPostsAndProfilesAndCommentsGroup3Stats"]);
 
 Route::get("/post/signaled-posts",[PostStatsController::class,"getLast5SignaledPosts"])->name("all-signaled-posts");
+Route::get("/comment/signaled-comments",[CommentStatsController::class,"getLast5SignaledComments"])->name("all-signaled-comments");
 Route::get("/blog-users/signaled-profiles",[ProfileStatsController::class,"getLast5SignaledProfiles"])->name("all-signaled-profiles");
+
 Route::get("/blog-users/blacklisted-profiles",[ProfileStatsController::class,"getBlacklistedProfiles"])->name("blacklisted-profiles");
 
 Route::get('/stats/blog-users/signals-contexts/{id}',[ProfileStatsController::class,"getSignalsContextsForUser"])->name("profile-signals-contexts");
+
+Route::get('/stats/post/{id}/signals',[PostStatsController::class,"getSignalsForPost"])->name("post-signals");
+
+Route::get('/stats/comment/{id}/signals',[CommentStatsController::class,"getSignalsForComment"])->name("comment-signals");
 
 //show one for post,comment & profile
 Route::get("/posts/{id}/show",[PostStatsController::class,"show"])->name("show-post");

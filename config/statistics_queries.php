@@ -38,7 +38,7 @@ return [
 		 WHERE DATE(wv.voted_on) 
 		 BETWEEN ':start_date' AND ':end_date' 
 		 GROUP BY wv.post_id,DATE(voted_on) 
-		 HAVING NBR_IN_THE_DAY > 5
+		 HAVING NBR_IN_THE_DAY >=1
 
 		 UNION ALL
 
@@ -213,7 +213,7 @@ return [
 	// ",
 
 
-	"GET_LAST_N_SIGNALED_POSTS_AND_PROFILES" => "
+	"GET_LAST_N_SIGNALED_POSTS_AND_PROFILES_AND_COMMENTS" => "
 	    SELECT p.id as C1,p.title as C2,SUBSTRING(p.content FROM 1 FOR 10) as C3,
 		CONCAT(bu.firstname,' ',bu.lastname ) AS C4,bu.id AS C5 ,
 		tmpTab.last_signal_date as LAST_SIGNAL_AT ,
@@ -241,6 +241,24 @@ return [
 		  ORDER BY last_signal_date 
 		  DESC LIMIT :N
 		) tmpTab ON bu.id = tmpTab.signaled_id 
+
+		   UNION ALL 
+
+	    SELECT c.id as C1,SUBSTRING(c.content FROM 1 FOR 10) as C2,
+		c.post_id AS C3,CONCAT(bu.firstname,' ',bu.lastname ) AS C4,bu.id AS C5,
+		tmpTab.last_signal_date as LAST_SIGNAL_AT ,
+		tmpTab.nbr_of_signals as NBR_OF_SIGNALS,
+		3 SET_ORDER FROM comments c INNER JOIN 
+		(SELECT cs.comment_id ,MAX(cs.created_at) AS last_signal_date,
+		  COUNT(*) AS nbr_of_signals
+		  FROM comment_signals cs 
+		  GROUP BY cs.comment_id 
+		  ORDER BY last_signal_date 
+		  DESC LIMIT :N
+		) tmpTab 
+		ON c.id = tmpTab.comment_id INNER JOIN blog_users bu 
+		ON c.user_id = bu.id 
+
 		
 		ORDER BY SET_ORDER ASC,LAST_SIGNAL_AT DESC
 	",

@@ -58,8 +58,8 @@ class Last7DaysStatsService {
       return $this->last7DaysStatsRepo->getGroup2PerDayLast7DaysStats($search_date);
     }
 
-    public function getLastNSignaledPostsAndProfiles(int $n) {
-       return $this->last7DaysStatsRepo->getLastNSignaledPostsAndProfiles($n);
+    public function getLastNSignaledPostsAndProfilesAndComments(int $n) {
+       return $this->last7DaysStatsRepo->getLastNSignaledPostsAndProfilesAndComments($n);
     }
 
 }

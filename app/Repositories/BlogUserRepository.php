@@ -1,6 +1,5 @@
 <?php
 namespace App\Repositories;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\DB;
 
 class BlogUserRepository {

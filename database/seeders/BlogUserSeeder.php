@@ -15,6 +15,6 @@ class BlogUserSeeder extends Seeder
     public function run()
     {
         //creating 100 BlogUser rows in the DB
-        BlogUser::factory()->count(100)->create();
+        BlogUser::factory()->count(50)->create();
     }
 }
