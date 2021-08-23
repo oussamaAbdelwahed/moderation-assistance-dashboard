@@ -315,7 +315,7 @@ md = {
       low: 0,
       high: Math.max(...dataSignaledProfiles.series[0]) + 10, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
       chartPadding: {
-        top: 0,
+        top: 30,
         right: 0,
         bottom: 0,
         left: 0
@@ -335,7 +335,7 @@ md = {
       low: 0,
       high: Math.max(...dataSignaledPosts.series[0]) + 10, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
       chartPadding: {
-        top: 0,
+        top: 30,
         right: 0,
         bottom: 0,
         left: 0
@@ -355,7 +355,7 @@ md = {
       low: 0,
       high: Math.max(...dataSignaledComments.series[0]) + 10, // creative tim: we recommend you to set the high sa the biggest value + something for a better look
       chartPadding: {
-        top: 0,
+        top: 30,
         right: 0,
         bottom: 0,
         left: 0
@@ -375,7 +375,7 @@ md = {
       low: 0,
       high: Math.max(...dataTopPosts.series[0]) + 10,
       chartPadding: {
-        top: 0,
+        top: 30,
         right: 5,
         bottom: 0,
         left: 5
@@ -391,8 +391,8 @@ md = {
      var signaledPosts = new Chartist.Line('#signaledPosts', dataSignaledPosts, optionsSignaledPosts)
      md.startAnimationForLineChart(signaledPosts);
 
-     var signaledPosts = new Chartist.Line('#signaledComments', dataSignaledComments, optionsSignaledComments)
-     md.startAnimationForLineChart(signaledPosts);
+     var signaledComments = new Chartist.Line('#signaledComments', dataSignaledComments, optionsSignaledComments)
+     md.startAnimationForLineChart(signaledComments);
 
 
     var topPosts = Chartist.Bar('#topPosts', dataTopPosts, optionsTopPosts);
