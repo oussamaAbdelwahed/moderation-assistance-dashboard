@@ -28,6 +28,7 @@ class Last7DaysStatsService {
            
            $results[$key] = $value;
          }
+        
 
         $tmp = $this->last7DaysStatsRepo->getGroup1Last7DaysStats($start_date,$end_date);
 
@@ -39,7 +40,7 @@ class Last7DaysStatsService {
            }else if($value->SET_ORDER==3){
              $results["POSTS_WEIGHTED_OVER_THAN_100"][$value->DAY] +=1;
            }else if($value->SET_ORDER==4){
-            $results["SIGNALED_COMMENTS"][$value->DAY] +=1;
+            $results["SIGNALED_COMMENTS"][$value->DAY] = $value->NBR_IN_THE_DAY;
            }
         }
         return $results;

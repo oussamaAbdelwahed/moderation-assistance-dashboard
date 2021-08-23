@@ -18,7 +18,7 @@ class PostTopicSeeder extends Seeder
     {
         $topicsIds = Topic::where('id' ,'>' ,0)->pluck('id')->toArray();
         $postsIds = Post::where('id' ,'>' ,0)->pluck('id')->toArray();
-        for($i=0;$i<123;$i++){
+        for($i=0;$i<78;$i++){
             DB::connection("mysql2")->table("post_topic")->insert([
              "topic_id" => $topicsIds[array_rand($topicsIds)],
              "post_id" => $postsIds[array_rand($postsIds)],

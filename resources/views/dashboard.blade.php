@@ -158,7 +158,7 @@
               <div class="ct-chart" id="signaledProfiles"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Profils signalés par jour</h4>
+              <h4 class="card-title">Nbr de Profils signalés par jour</h4>
               <p class="card-category">
             </div>
             <div class="card-footer">
@@ -178,7 +178,7 @@
 
             </div>
             <div class="card-body">
-              <h4 class="card-title">Postes signalés par jour</h4>
+              <h4 class="card-title">Nbr de Postes signalés par jour</h4>
             </div>
             <div class="card-footer">
               <div>
@@ -197,7 +197,7 @@
 
             </div>
             <div class="card-body">
-              <h4 class="card-title">Commentaires signalés par jour</h4>
+              <h4 class="card-title">Nbr de Commentaires signalés par jour</h4>
             </div>
             <div class="card-footer">
               <div>
@@ -216,7 +216,7 @@
               <div class="ct-chart" id="topPosts"></div>
             </div>
             <div class="card-body">
-              <h4 class="card-title">Postes de poids >= 100 par jour</h4>
+              <h4 class="card-title">Nbr de Postes de poids >= 100 par jour</h4>
             </div>
             <div class="card-footer">
               <div>

@@ -18,7 +18,7 @@ class UsersSignalsSeeder extends Seeder
     public function run()
     {
         $usersIds = BlogUser::where('id' ,'>' ,0)->pluck('id')->toArray();
-        for($i=0;$i<117;$i++){
+        for($i=0;$i<44;$i++){
             $res =  ($i % 2 == 0) ? Post::factory()->create() : Comment::factory()->create();
             DB::connection("mysql2")->table("user_signals")->insert([
             "user_id" => $usersIds[array_rand($usersIds)],
