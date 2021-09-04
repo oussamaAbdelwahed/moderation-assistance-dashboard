@@ -6,7 +6,9 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\URL;
-
+/*
+ Ce controleur http se charge de la gestion des modérateurs & super modérateurs du tableau de bord
+*/
 class UserController extends Controller
 {
     /**
@@ -22,11 +24,17 @@ class UserController extends Controller
             'password' => ['required', 'string', 'confirmed','min:8'],
     ]; 
 
+   /*
+     Cette méthode affiche la liste des modérateur & super modérateurs
+   */
     public function index(User $model)
     {
       return view('users.index', ['users' => $model->cursorPaginate(1)]);
     }
 
+   /*
+     Cette méthode permet de retourner une vue de création d'un nouveau modérateur
+   */
     public function create() {
         return view('users.create');
     }
@@ -49,6 +57,9 @@ class UserController extends Controller
        ];
     }
 
+   /*
+     Cette méthode permet de créer/ enregistrer un nouveau modérateur
+   */
     public function store(Request $request) {
 
         $this->validate($request,$this::$rules,$this->messages());
@@ -70,6 +81,10 @@ class UserController extends Controller
        return view("users.edit")->with("moderator",$moderator);
     }
 
+
+   /*
+     Cette méthode permet de mettre à jour les informations personnelles d'un modérateur
+   */
     public function update(Request $request,$id) {
        $validationRules = $this::$rules;
        unset($validationRules["password"]);
@@ -90,9 +105,11 @@ class UserController extends Controller
        ->with("success_msg","le modérateur a été mis à jour avec success");
     }
 
+
+   /*
+     Cette méthode permet de supprimer un modérateur
+   */
     public function destroy(User $user) {
-        //here maybe we will use a field to disable user account
-        //dd($user);
         $user->delete();
         return redirect(URL("user"))->with("success_msg","le modérateur a été supprimé avec success");
     }

@@ -8,7 +8,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Config;
 use App\Services\PostService;
-
+//Classe de test qui permet de tester toutes nouvelles fonctionnalités developpée hors de son contexte 
+// Conçu seulement pour des raisons de tests
 class TestDBController extends Controller
 {
 

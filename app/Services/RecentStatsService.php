@@ -2,7 +2,15 @@
 namespace App\Services;
 
 use App\Repositories\RecentStatsRepository;
-
+/*
+   Cette classe est une classe qui sera utilisée par la classe controleur correspondante 
+   et elle utilise la classe repository correspondante,
+   elle agit comme un classe intermédiaire entre les deux classes controleur et repository
+   Cette classe se charge seulement à travers une seule méthode de
+   retourner un tableau associatif aprés avoir formater le résultat d'invocation de a méthode 
+   correspondante de la classe repository , ce tableau associatif contient 5 métriques statistiques
+   (celles calculés sur les dernières 48 heures et qui sont affichées en haut de la page du tableau de bord)
+*/
 class RecentStatsService {
     protected $recentStatsRepo;
 

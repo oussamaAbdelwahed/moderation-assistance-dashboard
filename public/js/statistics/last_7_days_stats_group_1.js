@@ -1,6 +1,16 @@
-const G1="g1";
-const G2="g2";
-const G3="g3";
+/*
+  ce fichier contient toutes les intéractions utilisateur(evenement dom: clicks sur les boutons pour l'affichage en partie des métriques statistiques) 
+  dans la page du tableau d bord (dashboard.blade.php)
+  Ce fichier infoque des méthodes javascript contenus dans le fichier public/material/js/material-dashbaord.js
+  a travers l'objet md,
+
+  le fichier public/material/js/material-dashbaord.js est un fichier relative à la template utilisée
+  et contient toutes les fonctions qui permettent de rempir et afficher les chartes graphiques par les données
+  retournées apres l'appel AJAX a notre BACK-END
+*/
+const G1="g1";const G2="g2";const G3="g3";
+
+//méthode qui execute un appel AJAX vers le BACK-END pour récupérer les statistiques contenus dans les 4 chartes bleus
 function getLast7DaysStatsGroup1(offset=1,initLoad = true){
     $.ajax({
         url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g1?offset="+offset,
@@ -31,6 +41,8 @@ function getLast7DaysStatsGroup1(offset=1,initLoad = true){
   });
 }
 
+
+//méthode qui execute un appel AJAX vers le BACK-END pour récupérer les statistiques contenus dans les 2 dernières pie charts en jaune
 function getPerDayStatsGroup2(offset=1,initLoad = true){
    $.ajax({
       url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-per-day-stats-g2?offset="+offset,
@@ -59,10 +71,10 @@ function getPerDayStatsGroup2(offset=1,initLoad = true){
          console.log(err);
       }
   });    
-
-
 }
 
+
+//méthode qui execute un appel AJAX vers le BACK-END pour récupérer les statistiques contenus dans les 2 premieres pie charts en jaune
 function getLast7DaysStatsGroup2(offset=1,initLoad = true){
     $.ajax({
         url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last7days-stats-g2?offset="+offset,
@@ -93,6 +105,8 @@ function getLast7DaysStatsGroup2(offset=1,initLoad = true){
   });  
 }
 
+
+//méthode qui execute un appel AJAX vers le BACK-END pour récupérer les listes des 5 derniers :profils utilisateurs postes et commentaires signalés
 function getLastSignaledPostsAndProfilesGroup3Stats(n){
       $.ajax({
         url:$('meta[name="website-base-url"]').attr('content')+"/stats/get-last-signaled-posts-and-profiles-stats-g3?n="+n,
@@ -114,7 +128,10 @@ function getLastSignaledPostsAndProfilesGroup3Stats(n){
   });    
 }
 
-
+/*
+  méthode qui se charge de formater le résultat retourné de l'appel/requete HTTP AJAX
+  pour le rendre comptaible avec les élements de l'UI (les chartes graphiques)
+*/
 function prepareDataToLast7DaysStatsGroup1(data){
     var dataSignaledProfiles = {
         labels: Object.keys(data.SIGNALED_PROFILES).map(String).map(val=> moment(val, "YYYY-MM-DD").format("ddd")),
@@ -129,7 +146,7 @@ function prepareDataToLast7DaysStatsGroup1(data){
         labels: Object.keys(data.SIGNALED_COMMENTS).map(String).map(val=> moment(val, "YYYY-MM-DD").format("ddd")),
         series: [Object.values(data.SIGNALED_COMMENTS).map(Number)]
     };
-    //
+    
     var dataTopPosts = {
         labels: Object.keys(data.POSTS_WEIGHTED_OVER_THAN_100).map(String).map(val=> moment(val, "YYYY-MM-DD").format("ddd")),
         series: [Object.values(data.POSTS_WEIGHTED_OVER_THAN_100).map(Number)]
@@ -137,6 +154,11 @@ function prepareDataToLast7DaysStatsGroup1(data){
     md.initDashboardPageGroup1Charts(dataSignaledProfiles,dataSignaledPosts,dataSignaledComments,dataTopPosts);
 }
 
+
+/*
+  méthode qui se charge de formater le résultat retourné de l'appel/requete HTTP AJAX
+  pour le rendre compatible avec les élements de l'UI (les chartes graphiques)
+*/
 function prepareDataToLast7DaysStatsGroup2(data,isPerDayPieChars=false){
     var keys = Object.keys(data);
     var mapper ={
@@ -176,6 +198,11 @@ function prepareDataToLast7DaysStatsGroup2(data,isPerDayPieChars=false){
     md.initDashboardPageGroup2Charts(dataInteractions,dataContributors,isPerDayPieChars);
 }
 
+
+/*
+  méthode qui se charge de formater le résultat retourné de l'appel/requete HTTP AJAX
+  pour le rendre compatible avec les élements de l'UI (les chartes graphiques)
+*/
 function prepareDataToLastSignaledPostsAndProfilesGroup3DataTables(data){
    var postsDT=  $("#dt-posts");
    var profilesDT=  $("#dt-profiles");
@@ -197,11 +224,13 @@ function prepareDataToLastSignaledPostsAndProfilesGroup3DataTables(data){
       for(var i=2*oneThird;i<size;i++){
          renderRowForCommentsDT(commentsDT,data[i]);
       }
-   }else{
-       //clear up the data table with so 0 records
-   }
+   }else{}
 }
 
+
+/*
+  méthode qui se charge manipuler le DOM (création dynamique des element DOM pour afficher le résultat de la requete AJAX)
+*/
 function renderRowForPostsDT(domParent,data){
    var diff = moment().diff(moment(data['LAST_SIGNAL_AT'],'YYYY-MM-DD hh:mm:ss'),"days");
    var domElement = $("<tr/>").append(
@@ -233,6 +262,10 @@ function renderRowForPostsDT(domParent,data){
    domParent.append(domElement);
 }
 
+
+/* 
+   méthode qui se charge manipuler le DOM (création dynamique des element DOM pour afficher le résultat de la requete AJAX)
+*/
 function renderRowForProfilesDT(domParent,data){
    var diff = moment().diff(moment(data['LAST_SIGNAL_AT'],'YYYY-MM-DD hh:mm:ss'),"days");
 
@@ -266,6 +299,9 @@ function renderRowForProfilesDT(domParent,data){
 }
 
 
+ /* 
+   méthode qui se charge manipuler le DOM (création dynamique des element DOM pour afficher le résultat de la requete AJAX)
+*/
 function renderRowForCommentsDT(domParent,data){
    var diff = moment().diff(moment(data['LAST_SIGNAL_AT'],'YYYY-MM-DD hh:mm:ss'),"days");
    var domElement = $("<tr/>").append(
@@ -292,6 +328,9 @@ function renderRowForCommentsDT(domParent,data){
    domParent.append(domElement);
 }
 
+/* 
+   méthode utilitaire qui se charge de calculer une date et l'afficher sur l'UI (date sur laquelle les statiqtiques sont calculées) 
+*/
 function calculateAndRenderPaginatorDateInterval(coeff,statsGroup){
    var startDate = moment().subtract(6*coeff, "days").format("YYYY-MM-DD");
    var endDate = moment().subtract(6*(coeff- 1), "days").format("YYYY-MM-DD");
@@ -303,13 +342,16 @@ function calculateAndRenderPaginatorDateInterval(coeff,statsGroup){
    }
 }
 
+/* 
+   méthode utilitaire qui se charge de calculer une date et l'afficher sur l'UI (date sur laquelle les statiqtiques sont calculées) 
+*/
 function calculateAndRenderPaginatorDateIntervalForPerDayPieCharts(coeff){
    var searchDate = moment().subtract(coeff - 1, "days").format("YYYY-MM-DD");
    $("#perDay-g2-stats-chart1-footer").text("dans le jour : "+searchDate );
    $("#perDay-g2-stats-chart2-footer").text("dans le jour : "+searchDate );
 }
 
-
+//code contenu dans cette fonction closure sera executé dés le chargement du document HTML se termine
 $(function(){
   md.initDashboardPageCharts();
   var g1StatsPaginatorNbrClicks = 1;
@@ -442,7 +484,6 @@ $(function(){
      $(this).addClass("disabled");
      $(this).attr("aria-disabled",true);
    }
-
    if(perDayG2StatsPaginatorNbrClicks<=7){
       $("#perWeek-g2-paginator-next-link").addClass("disabled");
       $("#perWeek-g2-paginator-next-link").attr("aria-disabled",true);
@@ -487,19 +528,16 @@ $(function(){
      $(this).addClass("disabled");
      $(this).attr("aria-disabled",true);
    }
-
    if(perDayG2StatsPaginatorNbrClicks==1){
       $("#perDay-g2-paginator-next-link").addClass("disabled");
       $("#perDay-g2-paginator-next-link").attr("aria-disabled",true);
    }
-
    if(fetchData){
      $("#perDay-paginator-spinner-stats-group-2").show();
      getPerDayStatsGroup2(perDayG2StatsPaginatorNbrClicks,false);
    }
   });  
-
-  //END WORK PIE CHARTS PER DAY
+//END WORK PIE CHARTS PER DAY
 
   $("#show-last-signaled-posts-profiles-btn").on("click",function(e){
      $("#group3-stats-error-msg").hide();

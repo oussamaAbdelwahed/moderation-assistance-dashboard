@@ -4,7 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+/*
+  Cette classe décrit le modéle qui représente un poste publié par un utilisateur sur le blog
 
+  Les noms des méthodes ci-dessous seront utilisées pour accéder au relations entre 
+  les modéles et servent donc à definir les associations/relations entre ces derniers
+*/
 class Post extends Model
 {
     protected $connection = "mysql2";

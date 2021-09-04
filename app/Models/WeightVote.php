@@ -4,7 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+/*
+  Cette classe décrit le modéle Vote de poids , puisque un poste peut subir / recevoir plusieurs vote de poids (sorte de rating)
 
+  Les noms des méthodes ci-dessous seront utilisées pour accéder au relations entre 
+  les modéles et servent donc à definir les associations/relations entre ces derniers
+*/
 class WeightVote extends Model
 {
     protected $connection = "mysql2";

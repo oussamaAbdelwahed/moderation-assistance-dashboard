@@ -18,7 +18,7 @@ class CommentSignalsSeeder extends Seeder
     {
         $usersIds = BlogUser::where('id' ,'>' ,0)->pluck('id')->toArray();
         $commentsIds = Comment::where('id' ,'>' ,0)->pluck('id')->toArray();
-        for($i=0;$i<77;$i++){
+        for($i=0;$i<57;$i++){
             DB::connection("mysql2")->table("comment_signals")->insert([
              "user_id" => $usersIds[array_rand($usersIds)],
              "comment_id" => $commentsIds[array_rand($commentsIds)],

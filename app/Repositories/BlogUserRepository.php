@@ -2,8 +2,16 @@
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
 
+/*
+  Classe responsable d'intéragir directement avec la BD pour fournir des données/métrique statistiques relatives aux utilisateurs du blog
+  ses méthodes sont invoquées par les classes services correspondantes
+  */
 class BlogUserRepository {
 
+  /*
+    Cette méthode  (utilise la socket de connexion mysql2 car les données relatifs au blog sont accessibles par cette instance de socket connexion)
+      permet de récuperer les derniers utiisateurs signalés (par date de signal)   
+  */
   public function getLastNSignaledBlogUsers(int $n= 5) {
     $result = DB::connection("mysql2")->table("blog_users as bu")   
               ->select("bu.*","tmpTab.last_signal_date","tmpTab.nbr_of_signals")
@@ -18,6 +26,9 @@ class BlogUserRepository {
     return $result;         
   }
 
+  /*
+    Cette méthode permet de récuperer les derniers utilisateurs signalés (par date de signal)   
+  */
   public function getBlacklistedProfiles($threshold,$from,$to){
      return DB::connection("mysql2")->table("blog_users as bu")
             ->select("bu.*",DB::connection("mysql2")->raw("COUNT(*) as nbr_of_signals"))

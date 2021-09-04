@@ -3,7 +3,7 @@ use Illuminate\Support\Facades\DB ;
 
 namespace App\Helpers;
 
-
+// classe utilitaire qui contient des méthodes statiques à usage utilitaire dans les différentes classe de l'app
 class AppHelper {
      private static $ins = null;
 

@@ -1,8 +1,15 @@
 <?php
 namespace App\Repositories;
 use Illuminate\Support\Facades\DB;
-
+/*
+  Classe responsable d'intéragir directement avec la BD pour fournir des données/métrique statistiques relatives aux commentaires
+  ses méthodes sont invoquées par les classes services correspondantes
+*/
 class CommentRepository {
+   /*
+    Cette méthode  (utilise la socket de connexion mysql2 car les données relatifs au blog sont accessibles par cette instance de socket connexion)
+      permet de récuperer les derniers commentaires signalés (par date de signal)   
+  */
    public function getLastNSignaledComments(int $n= 5) {
       $result = DB::connection("mysql2")->table('comments as c')
         ->select("c.*","tmpTab.last_signal_date","tmpTab.nbr_of_signals","bu.firstname  AS user_firstname",

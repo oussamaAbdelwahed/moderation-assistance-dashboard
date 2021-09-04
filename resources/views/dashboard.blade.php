@@ -1,3 +1,4 @@
+{{-- C'est la page web  'tableau de bord' qui contient toutes les métriques statstiques étudiées --}}
 @extends('layouts.app', ['activePage' => 'dashboard', 'titlePage' => __('Tableau de bord')])
 @section('content')
   <div class="content">

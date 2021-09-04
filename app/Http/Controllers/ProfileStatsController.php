@@ -7,6 +7,10 @@ use Illuminate\Http\Request;
 use  App\Services\BlogUserService;
 use App\Models\BlogUserSignal;
 use App\Models\BlogUser;
+
+/*
+ Ce Controleur http se charge de servir des fonctions en relation avec les utilisateurs du blog (les internautes)
+*/
 class ProfileStatsController extends Controller
 {
 
@@ -17,18 +21,18 @@ class ProfileStatsController extends Controller
         $this->blogUserService = $blogUserService;
     }
 
+    /*
+      Cette méthode se charge d'afficher tous les profils utilisateurs signalés avec une pagination de 10 résultats par page
+    */
     public function getLast5SignaledProfiles(Request $req){
-      //return dd($this->blogUserService->getLastNSignaledBlogUsers()->cursorPaginate(10));
       return view("profile.signaled_profiles")
       ->with("data",$this->blogUserService->getLastNSignaledBlogUsers()->cursorPaginate(10));
     }
 
-
-
-
-
-
-    
+     /*
+      Cette méthode se charge d'afficher tous les profils utilisateurs en liste noire: c'est a dire les profils utilisateurs qui ont subis un nombe de signal >=
+      au seuil préfixé et durant l' intervalle temporelle choisi sur l'interface utilisateur UI
+    */
     public function getBlacklistedProfiles(Request $req){
       $threshold = 1;
       $from_date = '1970-01-01';
@@ -58,11 +62,10 @@ class ProfileStatsController extends Controller
 
 
 
-
-
-
-
-
+    /*
+      Cette méthode se charge d'afficher toutes les causes de signals subis par un utilisateurs : 
+      Une cause de signal pourrait etre la publication d'un poste OU la publication d'un commentaire jugés inappropriés
+    */
     public function getSignalsContextsForUser(Request $req,$id){    
       $signals = BlogUserSignal::where("signaled_id","=",$id)->orderBy("created_at","desc")->with(["signalerUser"])->cursorPaginate(10);
 
@@ -72,7 +75,9 @@ class ProfileStatsController extends Controller
       ->with("fullname",$req->query("fullname"));
     }
 
-    
+     /*
+      Cette méthode se charge d'afficher les informations relatives à un utilisateur donné
+    */
     public function show($id){
       return view("profile.show_one")->with("profile",BlogUser::findOrFail($id));
     }
